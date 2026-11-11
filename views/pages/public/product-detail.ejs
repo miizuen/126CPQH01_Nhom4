@@ -1,0 +1,224 @@
+<!-- ─── CHI TIẾT SẢN PHẨM – LOFI ORGANIC STYLE ─────────────────────── -->
+
+<!-- Breadcrumb -->
+<div style="background: #f6f2e9; border-bottom: 1px solid var(--lf-border); padding: 12px 0; margin-bottom: 0;">
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+      <a href="/" style="color: #256b40; font-weight: 600; text-decoration: none;">Trang chủ</a>
+      <span style="color: #94a3b8;">→</span>
+      <a href="/shop" style="color: #256b40; font-weight: 600; text-decoration: none;">Cửa hàng</a>
+      <span style="color: #94a3b8;">→</span>
+      <span style="color: #64748b; font-weight: 500;"><%= product.name %></span>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="padding-top: 36px; padding-bottom: 70px;">
+  
+  <!-- Main Product Card -->
+  <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid var(--lf-border); padding: 44px; box-shadow: 0 4px 20px rgba(22, 48, 31, 0.06); margin-bottom: 36px;">
+    <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: flex-start;">
+
+      <!-- Hình ảnh sản phẩm -->
+      <div>
+        <% 
+          let mainImg = product.images && product.images.length ? product.images[0] : '';
+          if (!mainImg || mainImg.includes('photo-1576045057995-568f588f82fb')) {
+            mainImg = 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=800&q=80';
+          }
+        %>
+        <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--lf-border); background: #f8fafc; margin-bottom: 16px; position: relative; aspect-ratio: 1/1;">
+          <img src="<%= mainImg %>" alt="<%= product.name %>" onerror="this.onerror=null;if(this.alt.toLowerCase().includes('kale')||this.alt.toLowerCase().includes('cải')){this.src='/images/cai-kale.jpg';}else{this.src='https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80';}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;"
+               onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+          <!-- Organic badge overlay -->
+          <div style="position: absolute; top: 16px; left: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <% if (product.certifications && product.certifications.length) { %>
+              <% product.certifications.forEach(cert => { %>
+                <span style="background: rgba(255,255,255,0.95); color: #166534; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 20px; border: 1px solid #bbf7d0; backdrop-filter: blur(4px);">
+                  🏅 <%= cert %>
+                </span>
+              <% }) %>
+            <% } else { %>
+              <span style="background: rgba(255,255,255,0.95); color: #166534; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 20px; border: 1px solid #bbf7d0;">
+                ✓ Chuẩn VietGAP
+              </span>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Thumbnail row nếu có nhiều ảnh -->
+        <% if (product.images && product.images.length > 1) { %>
+          <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
+            <% product.images.forEach((img, idx) => { %>
+              <img src="<%= img %>" alt="Ảnh <%= idx+1 %>" 
+                   style="width: 70px; height: 70px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid <%= idx === 0 ? '#256b40' : 'var(--lf-border)' %>; flex-shrink: 0;"
+                   onclick="document.querySelector('[alt=\'<%= product.name %>\']').src = this.src">
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- Thông tin chi tiết -->
+      <div>
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #256b40; margin-bottom: 10px;">
+          🌱 <%= product.origin || 'Nông trại sinh thái đạt chuẩn' %>
+        </div>
+        <h1 style="font-family: 'Lora', Georgia, serif; font-size: 34px; font-weight: 700; color: #16301f; margin-bottom: 16px; line-height: 1.25;">
+          <%= product.name %>
+        </h1>
+
+        <!-- Giá -->
+        <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 24px; padding: 16px 20px; background: #f6f2e9; border-radius: 14px; border: 1px solid var(--lf-border);">
+          <span style="font-size: 36px; font-weight: 800; color: #c2410c; font-family: 'Lora', Georgia, serif;">
+            <%= product.price ? product.price.toLocaleString('vi-VN') : 0 %>đ
+          </span>
+          <span style="color: #64748b; font-size: 15px; font-weight: 500;">/ <%= product.unit || 'kg' %></span>
+          <% if (product.comparePrice && product.comparePrice > product.price) { %>
+            <span style="font-size: 18px; color: #94a3b8; text-decoration: line-through; margin-left: 4px;">
+              <%= product.comparePrice.toLocaleString('vi-VN') %>đ
+            </span>
+            <span class="badge-pill bg-orange" style="margin-left: 4px;">
+              −<%= Math.round((1 - product.price/product.comparePrice)*100) %>%
+            </span>
+          <% } %>
+        </div>
+
+        <!-- Mô tả sản phẩm -->
+        <p style="color: #334155; font-size: 15px; margin-bottom: 24px; line-height: 1.75;">
+          <%= product.description || 'Sản phẩm được trồng theo quy trình nông nghiệp hữu cơ tự nhiên, không sử dụng thuốc trừ sâu, phân bón hóa học hay chất biến đổi gen (Non-GMO). Mỗi lô hàng đều được kiểm định dư lượng nitrate và kim loại nặng trước khi đóng gói.' %>
+        </p>
+
+        <!-- Thông tin nhanh -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px;">
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">📦</span>
+            <div>
+              <div style="font-size: 11px; color: #256b40; font-weight: 700; text-transform: uppercase;">Tồn kho</div>
+              <div style="font-size: 14px; font-weight: 700; color: #16301f;"><%= product.stock > 0 ? product.stock + ' ' + (product.unit || 'kg') : 'Hết hàng' %></div>
+            </div>
+          </div>
+          <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">🏷️</span>
+            <div>
+              <div style="font-size: 11px; color: #c2410c; font-weight: 700; text-transform: uppercase;">Mã sản phẩm</div>
+              <div style="font-size: 14px; font-weight: 700; color: #16301f;">#<%= product._id.toString().slice(-6).toUpperCase() %></div>
+            </div>
+          </div>
+          <div style="background: #fefce8; border: 1px solid #fde68a; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">🚚</span>
+            <div>
+              <div style="font-size: 11px; color: #d97706; font-weight: 700; text-transform: uppercase;">Giao hàng</div>
+              <div style="font-size: 13px; font-weight: 700; color: #16301f;">Trong ngày, chuỗi lạnh</div>
+            </div>
+          </div>
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">✅</span>
+            <div>
+              <div style="font-size: 11px; color: #256b40; font-weight: 700; text-transform: uppercase;">Cam kết</div>
+              <div style="font-size: 13px; font-weight: 700; color: #16301f;">Hoàn tiền 100% nếu không tươi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form đặt mua -->
+        <form id="detailCartForm" onsubmit="event.preventDefault(); addDetailToCart();" style="display: flex; gap: 14px; align-items: center;">
+          <input type="hidden" name="productId" value="<%= product._id %>">
+          
+          <!-- Số lượng -->
+          <div style="display: flex; align-items: center; border: 2px solid var(--lf-border); border-radius: 30px; overflow: hidden; background: #f6f2e9;">
+            <button type="button" onclick="const q = document.getElementById('qty'); if (q.value > 1) q.value--;" 
+                    style="border: none; background: none; padding: 10px 18px; cursor: pointer; font-size: 18px; font-weight: 700; color: #16301f;">−</button>
+            <input type="number" id="qty" name="quantity" value="1" min="1" max="<%= product.stock || 99 %>" 
+                   style="width: 54px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 16px; outline: none; color: #16301f;">
+            <button type="button" onclick="const q = document.getElementById('qty'); q.value++;" 
+                    style="border: none; background: none; padding: 10px 18px; cursor: pointer; font-size: 18px; font-weight: 700; color: #16301f;">+</button>
+          </div>
+
+          <button type="submit" id="btnDetailCart" 
+                  style="flex: 1; padding: 14px 24px; background: #16301f; color: #fff; border: none; border-radius: 30px; font-size: 15.5px; font-weight: 700; cursor: pointer; transition: all 0.25s; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(22, 48, 31, 0.25);"
+                  onmouseover="this.style.background='#256b40'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#16301f'; this.style.transform='';">
+            🛒 Thêm Vào Giỏ Hàng
+          </button>
+        </form>
+
+        <script>
+          async function addDetailToCart() {
+            const qty = parseInt(document.getElementById('qty').value) || 1;
+            const btn = document.getElementById('btnDetailCart');
+            const original = btn.innerHTML;
+            btn.innerHTML = '<span>⏳ Đang thêm...</span>';
+            btn.style.opacity = '0.75';
+            try {
+              const res = await fetch('/cart/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ productId: '<%= product._id %>', quantity: qty })
+              });
+              if (res.redirected && res.url.includes('/auth/login')) {
+                showToast('⚠️ Vui lòng đăng nhập để mua hàng!', 'warning');
+                setTimeout(() => window.location.href = '/auth/login', 1000);
+                return;
+              }
+              const data = await res.json();
+              if (data.success) {
+                btn.innerHTML = '<span>✓ Đã thêm vào giỏ!</span>';
+                btn.style.background = '#256b40';
+                btn.style.opacity = '1';
+                const badge = document.getElementById('headerCartBadge');
+                if (badge) { badge.textContent = data.totalItems; badge.style.display = 'inline-block'; }
+                showToast(`🌿 Đã thêm ${qty}x "<%= (product.name || '').replace(/['\\]/g, '') %>" vào giỏ hàng!`, 'success');
+                setTimeout(() => { btn.innerHTML = original; btn.style.background = '#16301f'; }, 2000);
+              } else {
+                showToast(data.message || 'Không thể thêm sản phẩm', 'error');
+                btn.innerHTML = original;
+                btn.style.opacity = '1';
+              }
+            } catch (err) {
+              showToast('⚠️ Vui lòng đăng nhập để mua hàng!', 'warning');
+              btn.innerHTML = original;
+              btn.style.opacity = '1';
+            }
+          }
+        </script>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── ĐÁNH GIÁ SẢN PHẨM ─────────────────────────────────────────────── -->
+  <div style="background: #FFFFFF; border-radius: 22px; border: 1px solid var(--lf-border); padding: 36px; box-shadow: 0 4px 16px rgba(22, 48, 31, 0.04);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1.5px solid var(--lf-border);">
+      <h3 style="font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 700; color: #16301f; margin: 0;">
+        Đánh Giá & Nhận Xét Từ Khách Hàng
+      </h3>
+      <span style="font-size: 26px; color: #ED9D26; letter-spacing: 2px;">★★★★★</span>
+    </div>
+
+    <% if (typeof reviews !== 'undefined' && reviews.length) { %>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <% reviews.forEach(rev => { %>
+          <div style="padding: 20px; background: #f6f2e9; border-radius: 14px; border: 1px solid var(--lf-border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: #256b40; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">
+                  <%= rev.user ? rev.user.fullName.charAt(0).toUpperCase() : 'K' %>
+                </div>
+                <strong style="color: #16301f; font-size: 14.5px;"><%= rev.user ? rev.user.fullName : 'Khách hàng' %></strong>
+              </div>
+              <span style="color: #ED9D26; font-size: 16px; letter-spacing: 1px;">
+                <%= '★'.repeat(rev.rating) + '☆'.repeat(5 - rev.rating) %>
+              </span>
+            </div>
+            <p style="color: #334155; font-size: 14px; line-height: 1.65; margin: 0;"><%= rev.comment %></p>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div style="text-align: center; padding: 36px; color: #64748b;">
+        <div style="font-size: 40px; margin-bottom: 10px;">💬</div>
+        <p style="font-size: 14.5px; line-height: 1.65;">Chưa có nhận xét nào cho sản phẩm này. Hãy là người đầu tiên trải nghiệm và chia sẻ cảm nhận!</p>
+      </div>
+    <% } %>
+  </div>
+
+</div>

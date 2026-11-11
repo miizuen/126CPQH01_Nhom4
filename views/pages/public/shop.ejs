@@ -1,0 +1,209 @@
+<!-- ─── TRANG CỬA HÀNG – LOFI ORGANIC STYLE ─────────────────────────── -->
+
+<!-- Page Header Banner -->
+<section style="background: linear-gradient(135deg, #16301f 0%, #1e4028 100%); padding: 40px 0 44px; border-radius: 0 0 28px 28px; margin-bottom: 36px;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #86efac; margin-bottom: 8px;">
+          🌿 Siêu thị nông sản hữu cơ
+        </div>
+        <h1 style="font-family: 'Lora', Georgia, serif; font-size: 38px; font-weight: 700; color: #FFFFFF; margin: 0; line-height: 1.2;">
+          <%= typeof selectedCategory !== 'undefined' && selectedCategory ? selectedCategory.name : 'Tất Cả Nông Sản Hữu Cơ' %>
+        </h1>
+        <p style="color: #94a3b8; font-size: 14.5px; margin-top: 8px; font-weight: 500;">
+          <%= typeof totalProducts !== 'undefined' ? totalProducts : 0 %> sản phẩm tươi sạch, chuẩn VietGAP & USDA Organic
+        </p>
+      </div>
+      <!-- Breadcrumb -->
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b;">
+        <a href="/" style="color: #86efac; font-weight: 600; text-decoration: none;">Trang chủ</a>
+        <span style="color: #475569;">→</span>
+        <span style="color: #94a3b8;">Cửa hàng</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="padding-bottom: 70px;">
+  <div style="display: flex; gap: 30px; align-items: flex-start;">
+
+    <!-- ─── SIDEBAR BỘ LỌC ────────────────────────────────────────────── -->
+    <aside style="width: 270px; flex-shrink: 0; background: #FFFFFF; border-radius: 20px; border: 1px solid var(--lf-border); padding: 28px; box-shadow: 0 4px 16px rgba(22, 48, 31, 0.05); position: sticky; top: 90px;">
+      <h3 style="font-family: 'Lora', Georgia, serif; font-size: 18px; font-weight: 700; color: #16301f; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1.5px solid var(--lf-border);">
+        🔍 Bộ Lọc Tìm Kiếm
+      </h3>
+
+      <form action="/shop" method="GET">
+        <% if (typeof query !== 'undefined' && query.q) { %>
+          <input type="hidden" name="q" value="<%= query.q %>">
+        <% } %>
+
+        <!-- Danh mục -->
+        <div style="margin-bottom: 26px;">
+          <h4 style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #256b40; margin-bottom: 14px;">📂 Danh mục</h4>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; font-weight: 500; color: #334155;">
+              <input type="radio" name="category" value="" <%= !query || !query.category ? 'checked' : '' %> onchange="this.form.submit()" style="accent-color: #256b40;">
+              <span>🌿 Tất cả nông sản</span>
+            </label>
+            <% if (typeof categories !== 'undefined') { %>
+              <% categories.forEach(cat => { %>
+                <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; font-weight: 500; color: #334155;">
+                  <input type="radio" name="category" value="<%= cat.slug %>" <%= query && query.category === cat.slug ? 'checked' : '' %> onchange="this.form.submit()" style="accent-color: #256b40;">
+                  <span><%= cat.icon || '🥬' %> <%= cat.name %></span>
+                </label>
+              <% }) %>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Chứng nhận hữu cơ -->
+        <div style="margin-bottom: 26px;">
+          <h4 style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #256b40; margin-bottom: 14px;">🏅 Chứng nhận</h4>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <% ['VietGAP', 'USDA Organic', 'EU Organic', 'GlobalGAP'].forEach(cert => { %>
+              <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; font-weight: 500; color: #334155;">
+                <input type="radio" name="organic" value="<%= cert %>" <%= query && query.organic === cert ? 'checked' : '' %> onchange="this.form.submit()" style="accent-color: #256b40;">
+                <span><%= cert %></span>
+              </label>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Khoảng giá -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #256b40; margin-bottom: 14px;">💰 Mức giá</h4>
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <input type="number" name="minPrice" placeholder="Từ (đ)" value="<%= query && query.minPrice ? query.minPrice : '' %>" 
+                   style="width: 50%; padding: 9px 12px; border: 1.5px solid var(--lf-border); border-radius: 10px; font-size: 13px; outline: none; font-family: inherit;"
+                   onfocus="this.style.borderColor='#256b40'" onblur="this.style.borderColor='var(--lf-border)'">
+            <input type="number" name="maxPrice" placeholder="Đến (đ)" value="<%= query && query.maxPrice ? query.maxPrice : '' %>" 
+                   style="width: 50%; padding: 9px 12px; border: 1.5px solid var(--lf-border); border-radius: 10px; font-size: 13px; outline: none; font-family: inherit;"
+                   onfocus="this.style.borderColor='#256b40'" onblur="this.style.borderColor='var(--lf-border)'">
+          </div>
+          <button type="submit" style="width: 100%; padding: 10px; background: #16301f; color: #fff; border: none; border-radius: 30px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit;"
+                  onmouseover="this.style.background='#256b40'" onmouseout="this.style.background='#16301f'">
+            Áp dụng bộ lọc
+          </button>
+        </div>
+
+        <a href="/shop" style="display: block; width: 100%; padding: 10px; text-align: center; background: #f6f2e9; color: #256b40; border: 1.5px solid var(--lf-border); border-radius: 30px; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: all 0.2s;"
+           onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f6f2e9'">
+          ↺ Đặt lại bộ lọc
+        </a>
+      </form>
+    </aside>
+
+    <!-- ─── DANH SÁCH SẢN PHẨM ────────────────────────────────────────── -->
+    <main style="flex: 1;">
+
+      <!-- Sort bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; background: #FFFFFF; padding: 14px 20px; border-radius: 16px; border: 1px solid var(--lf-border);">
+        <span style="font-size: 14px; color: #64748b; font-weight: 500;">
+          Hiển thị <strong style="color: #16301f;"><%= typeof totalProducts !== 'undefined' ? totalProducts : 0 %></strong> sản phẩm
+        </span>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span style="font-size: 13px; color: #64748b; font-weight: 600;">Sắp xếp:</span>
+          <a href="/shop?sort=newest" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; background: <%= !query || !query.sort || query.sort === 'newest' ? '#16301f' : '#f6f2e9' %>; color: <%= !query || !query.sort || query.sort === 'newest' ? '#fff' : '#334155' %>; text-decoration: none; border: 1px solid var(--lf-border);">Mới nhất</a>
+          <a href="/shop?sort=price_asc" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; background: <%= query && query.sort === 'price_asc' ? '#16301f' : '#f6f2e9' %>; color: <%= query && query.sort === 'price_asc' ? '#fff' : '#334155' %>; text-decoration: none; border: 1px solid var(--lf-border);">Giá tăng</a>
+          <a href="/shop?sort=price_desc" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; background: <%= query && query.sort === 'price_desc' ? '#16301f' : '#f6f2e9' %>; color: <%= query && query.sort === 'price_desc' ? '#fff' : '#334155' %>; text-decoration: none; border: 1px solid var(--lf-border);">Giá giảm</a>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px;">
+        <% if (typeof products !== 'undefined' && products.length) { %>
+          <% products.forEach(prod => { 
+            let prodImg = prod.images && prod.images.length ? prod.images[0] : '';
+            if (!prodImg || prodImg.includes('photo-1576045057995-568f588f82fb')) {
+              prodImg = 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80';
+            }
+          %>
+            <div style="background: #FFFFFF; border-radius: 18px; border: 1px solid var(--lf-border); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; position: relative;"
+                 onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 28px rgba(22, 48, 31, 0.08)'; this.style.borderColor='#86efac';"
+                 onmouseout="this.style.transform=''; this.style.boxShadow=''; this.style.borderColor='var(--lf-border)';">
+              
+              <a href="/products/<%= prod.slug %>" style="display: block; aspect-ratio: 1/1; overflow: hidden; background: #f8fafc; position: relative;">
+                <img src="<%= prodImg %>" alt="<%= prod.name %>" onerror="this.onerror=null;if(this.alt.toLowerCase().includes('kale')||this.alt.toLowerCase().includes('cải')){this.src='/images/cai-kale.jpg';}else{this.src='https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80';}" 
+                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;"
+                     onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'" 
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='/images/cai-kale.jpg';">
+                <% if (prod.certifications && prod.certifications.length) { %>
+                  <span style="position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.92); color: #166534; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 20px; border: 1px solid #bbf7d0;">
+                    🏅 <%= prod.certifications[0] %>
+                  </span>
+                <% } else { %>
+                  <span style="position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.92); color: #166534; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 20px; border: 1px solid #bbf7d0;">
+                    ✓ VietGAP
+                  </span>
+                <% } %>
+
+                <!-- Hover quick-add overlay -->
+                <div class="shop-quick-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px; background: linear-gradient(to top, rgba(22,48,31,0.85), transparent); transform: translateY(100%); opacity: 0; transition: all 0.3s; display: flex; align-items: center; justify-content: center;">
+                  <button onclick="quickAddToCart('<%= prod._id %>', this, '<%= (prod.name || '').replace(/['\\]/g, '') %>')" 
+                          style="background: rgba(255,255,255,0.95); color: #16301f; border: none; border-radius: 30px; padding: 8px 20px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; display: flex; align-items: center; gap: 6px;"
+                          onmouseover="this.style.background='#16301f'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.color='#16301f';">
+                    🛒 Thêm vào giỏ
+                  </button>
+                </div>
+              </a>
+
+              <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1;">
+                <div style="font-size: 11px; color: #256b40; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px;">
+                  <%= prod.origin || 'Nông Trại Hữu Cơ' %>
+                </div>
+                <a href="/products/<%= prod.slug %>" style="font-size: 15px; font-weight: 700; color: #0f172a; text-decoration: none; margin-bottom: 10px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  <%= prod.name %>
+                </a>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+                  <div>
+                    <span style="font-size: 17px; font-weight: 800; color: #c2410c;">
+                      <%= prod.price ? prod.price.toLocaleString('vi-VN') : 0 %>đ
+                    </span>
+                    <span style="font-size: 12px; color: #64748b;">/<%= prod.unit || 'kg' %></span>
+                  </div>
+                  <span style="font-size: 11px; color: #256b40; font-weight: 700; background: #f0fdf4; padding: 3px 8px; border-radius: 20px; border: 1px solid #bbf7d0;">
+                    Còn <%= prod.stock || 50 %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div style="grid-column: 1/-1; text-align: center; padding: 70px 20px; background: #FFFFFF; border-radius: 20px; border: 1px solid var(--lf-border);">
+            <div style="font-size: 52px; margin-bottom: 16px;">🔍</div>
+            <h3 style="font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 700; color: #16301f; margin-bottom: 8px;">Không tìm thấy sản phẩm phù hợp</h3>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 24px; line-height: 1.6;">Hãy thử tìm kiếm từ khóa khác hoặc bỏ các bộ lọc đã chọn</p>
+            <a href="/shop" style="display: inline-flex; align-items: center; gap: 8px; background: #16301f; color: #fff; padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 14px; text-decoration: none;">
+              ↺ Xem tất cả sản phẩm
+            </a>
+          </div>
+        <% } %>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<style>
+  /* Hover overlay for shop product cards */
+  a:hover + * .shop-quick-overlay,
+  div:hover .shop-quick-overlay {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+  }
+</style>
+
+<script>
+  // Fallback hình ảnh sản phẩm bị lỗi
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('main img').forEach(function(img) {
+      if (img.complete && img.naturalWidth === 0) {
+        img.src = '/images/cai-kale.jpg';
+      }
+    });
+  });
+</script>

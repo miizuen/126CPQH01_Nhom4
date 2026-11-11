@@ -1,0 +1,109 @@
+<!-- ─── DANH SÁCH ĐƠN HÀNG (LOFI ORGANIC MODERN STYLE) ────────────────── -->
+
+<div style="margin-bottom: 24px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 6px;">
+    <h2 style="font-family: 'Lora', Georgia, serif; font-size: 24px; font-weight: 700; color: #16301f; margin: 0; display: flex; align-items: center; gap: 10px;">
+      <span>📦</span> Quản Lý Đơn Hàng
+    </h2>
+    <% if (typeof total !== 'undefined') { %>
+      <span style="font-size: 13px; color: #166534; background: #eaf6ee; border: 1px solid #bbf7d0; padding: 4px 12px; border-radius: 9999px; font-weight: 600;">
+        Tổng cộng: <%= total %> đơn hàng
+      </span>
+    <% } %>
+  </div>
+  <p style="font-size: 14px; color: #64748b; margin: 0;">
+    Theo dõi trạng thái và lịch sử các chuyến hàng thực phẩm hữu cơ giao tới nhà bạn.
+  </p>
+</div>
+
+<!-- Bộ lọc trạng thái đơn -->
+<div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px; border-bottom: 1px solid #eee8dd;">
+  <% 
+    const currentStatus = typeof activeStatus !== 'undefined' ? activeStatus : 'ALL';
+    const tabs = [
+      { key: 'ALL', label: 'Tất cả' },
+      { key: 'PENDING', label: '⏳ Chờ xử lý' },
+      { key: 'CONFIRMED', label: '✅ Đã xác nhận' },
+      { key: 'SHIPPING', label: '🚚 Đang giao' },
+      { key: 'DELIVERED', label: '🎉 Đã nhận hàng' },
+      { key: 'CANCELLED', label: '❌ Đã hủy' }
+    ];
+  %>
+  <% tabs.forEach(t => { %>
+    <a href="/user/orders?status=<%= t.key %>" style="padding: 7px 16px; border-radius: 9999px; font-size: 13.5px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s; <%= currentStatus === t.key ? 'background: #16301f; color: #ffffff;' : 'background: #faf9f5; color: #475569; border: 1px solid #e2ded5;' %>">
+      <%= t.label %>
+    </a>
+  <% }) %>
+</div>
+
+<% if (typeof orders !== 'undefined' && orders.length) { %>
+  <div style="display: flex; flex-direction: column; gap: 18px;">
+    <% orders.forEach(o => { %>
+      <% 
+        const statusMap = {
+          'PENDING': { label: '⏳ Chờ xử lý', bg: '#fef3c7', color: '#92400e', border: '#fde68a' },
+          'CONFIRMED': { label: '✅ Đã xác nhận', bg: '#e0f2fe', color: '#0369a1', border: '#bae6fd' },
+          'SHIPPING': { label: '🚚 Đang giao hàng', bg: '#f3e8ff', color: '#6b21a8', border: '#e9d5ff' },
+          'DELIVERED': { label: '🎉 Đã giao thành công', bg: '#dcfce7', color: '#166534', border: '#bbf7d0' },
+          'CANCELLED': { label: '❌ Đã hủy', bg: '#fee2e2', color: '#991b1b', border: '#fecaca' }
+        };
+        const st = statusMap[o.status] || { label: o.status, bg: '#f1f5f9', color: '#475569', border: '#cbd5e1' };
+      %>
+      <div style="background: #ffffff; border: 1.5px solid #eee8dd; border-radius: 16px; padding: 22px; transition: all 0.25s; box-shadow: 0 2px 10px rgba(22, 48, 31, 0.03);" onmouseover="this.style.borderColor='#86efac'; this.style.boxShadow='0 6px 18px rgba(22, 48, 31, 0.08)';" onmouseout="this.style.borderColor='#eee8dd'; this.style.boxShadow='0 2px 10px rgba(22, 48, 31, 0.03)';">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #f1ece4; padding-bottom: 14px; margin-bottom: 16px;">
+          <div>
+            <span style="font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Mã đơn</span>
+            <strong style="color: #16301f; font-size: 15px; margin-left: 6px;">#<%= (o.orderCode || o._id.toString().slice(-8)).toUpperCase() %></strong>
+            <span style="font-size: 12.5px; color: #94a3b8; margin-left: 12px;">
+              📅 <%= new Date(o.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+            </span>
+          </div>
+
+          <span style="background: <%= st.bg %>; color: <%= st.color %>; border: 1px solid <%= st.border %>; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 700;">
+            <%= st.label %>
+          </span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: #faf9f5; border: 1px solid #e9e4db; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+              🥗
+            </div>
+            <div>
+              <div style="font-size: 13.5px; font-weight: 600; color: #0f172a;">
+                Kiện hàng nông sản hữu cơ
+              </div>
+              <div style="font-size: 12px; color: #64748b;">
+                Số lượng: <strong><%= o.items ? o.items.length : 0 %></strong> loại sản phẩm
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="text-align: right;">
+              <span style="font-size: 12px; color: #64748b; display: block;">Tổng thanh toán</span>
+              <strong style="color: #c2410c; font-size: 18px; font-weight: 800;">
+                <%= o.total ? o.total.toLocaleString('vi-VN') : 0 %>đ
+              </strong>
+            </div>
+
+            <a href="/user/orders/<%= o._id %>" class="btn btn-outline btn-sm" style="border: 1.5px solid #16301f; color: #16301f; font-weight: 600; border-radius: 9999px; padding: 8px 18px;">
+              Chi tiết →
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div style="text-align: center; padding: 60px 20px; background: #faf9f5; border-radius: 18px; border: 1.5px dashed #d5cfc2;">
+    <div style="font-size: 42px; margin-bottom: 12px;">📦</div>
+    <h3 style="font-size: 18px; font-weight: 700; color: #16301f; margin-bottom: 6px;">Không có đơn hàng nào</h3>
+    <p style="font-size: 13.5px; color: #64748b; margin-bottom: 20px; max-width: 420px; margin-left: auto; margin-right: auto;">
+      Bạn chưa có đơn hàng nào trong mục này. Hãy ghé qua cửa hàng để chọn nông sản hữu cơ tươi ngon hôm nay nhé!
+    </p>
+    <a href="/shop" class="btn btn-forest" style="padding: 10px 26px; border-radius: 9999px;">
+      🛒 Khám Phá Cửa Hàng Ngay
+    </a>
+  </div>
+<% } %>

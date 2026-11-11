@@ -1,0 +1,148 @@
+<div style="margin-bottom: 24px;">
+  <span style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-primary); background: var(--color-primary-bg); padding: 4px 10px; border-radius: var(--radius-full); display: inline-block; margin-bottom: 10px;">
+    CỔNG THÀNH VIÊN
+  </span>
+  <h1 style="font-size: 26px; font-weight: 800; color: var(--color-text); letter-spacing: -0.5px; margin-bottom: 6px;">
+    Đăng nhập tài khoản
+  </h1>
+  <p style="font-size: 14px; color: var(--color-text-muted);">
+    Vui lòng nhập thông tin để truy cập hệ thống nông sản ORGO
+  </p>
+</div>
+
+<!-- TIỆN ÍCH CHỌN NHANH TÀI KHOẢN (RẤT TIỆN KHI BÁO CÁO & TEST) -->
+<div style="background: var(--color-surface-subtle); border: 1px dashed var(--color-border); border-radius: var(--radius-md); padding: 14px; margin-bottom: 22px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+    <span style="font-size: 12px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px;">
+      ⚡ Tài khoản mẫu (Bấm để tự điền)
+    </span>
+    <span style="font-size: 11px; color: var(--color-text-light);">Pass: 123456</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;" id="demo-role-selector">
+    <button type="button" class="demo-pill" onclick="fillAccount('admin@orgo.vn', '123456', this)">
+      <span>👑</span> <span>Admin</span>
+    </button>
+    <button type="button" class="demo-pill" onclick="fillAccount('seller@orgo.vn', '123456', this)">
+      <span>🏪</span> <span>Nông Trại (Seller)</span>
+    </button>
+    <button type="button" class="demo-pill" onclick="fillAccount('muzien@gmail.com', '123456', this)">
+      <span>🔬</span> <span>Chuyên Gia Duyên</span>
+    </button>
+    <button type="button" class="demo-pill" onclick="fillAccount('voducphu1912005@gmail.com', '123456', this)">
+      <span>👤</span> <span>Khách Hàng Phú</span>
+    </button>
+  </div>
+</div>
+
+<form action="/auth/login" method="POST" id="loginForm">
+  <!-- Email -->
+  <div class="form-group">
+    <div class="form-label-row">
+      <label for="email" class="form-label">
+        <span>Email đăng nhập</span>
+      </label>
+    </div>
+    <div class="input-wrapper">
+      <span class="input-icon">✉️</span>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        class="form-input" 
+        placeholder="tenban@gmail.com" 
+        required 
+        autocomplete="email"
+      >
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="form-group" style="margin-bottom: 22px;">
+    <div class="form-label-row">
+      <label for="password" class="form-label">
+        <span>Mật khẩu</span>
+      </label>
+      <a href="/auth/forgot-password" class="auth-link" style="font-size: 12px;">
+        Quên mật khẩu?
+      </a>
+    </div>
+    <div class="input-wrapper">
+      <span class="input-icon">🔒</span>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        class="form-input" 
+        placeholder="Nhập mật khẩu (vd: 123456)" 
+        required 
+        autocomplete="current-password"
+      >
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn-submit">
+    <span>Đăng nhập vào hệ thống</span>
+    <span style="font-size: 17px; transition: transform 0.2s;">→</span>
+  </button>
+</form>
+
+<div class="auth-footer">
+  Chưa có tài khoản ORGO? 
+  <a href="/auth/register" class="auth-link" style="font-weight: 700;">
+    Đăng ký ngay
+  </a>
+</div>
+
+<style>
+  .demo-pill {
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+  }
+
+  .demo-pill:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-bg);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+  }
+
+  .demo-pill.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .btn-submit:hover span:last-child {
+    transform: translateX(3px);
+  }
+</style>
+
+<script>
+  function fillAccount(email, password, btnElement) {
+    document.getElementById('email').value = email;
+    document.getElementById('password').value = password;
+    
+    // Highlight pill active
+    document.querySelectorAll('.demo-pill').forEach(btn => btn.classList.remove('active'));
+    if (btnElement) {
+      btnElement.classList.add('active');
+    }
+
+    // Hiệu ứng focus nhẹ vào ô password
+    const passInput = document.getElementById('password');
+    passInput.focus();
+  }
+</script>

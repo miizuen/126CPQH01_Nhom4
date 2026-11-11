@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' | ORGO Organic' : 'ORGO 🌿 Thực Phẩm Hữu Cơ Chuẩn Quốc Tế' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ─── HEADER / NAVBAR ─────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="container navbar">
+      <a href="/" class="brand-logo">
+        <img src="/images/logo.png" alt="ORGO Organic Logo" class="logo-img">
+        <div class="brand-text">
+          <span class="brand-name">ORGO</span>
+          <span class="brand-sub">ORGANIC</span>
+        </div>
+      </a>
+
+      <!-- Search bar -->
+      <form action="/shop" method="GET" class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" name="q" placeholder="Tìm rau củ, hạt, trái cây..." value="<%= typeof query !== 'undefined' && query.q ? query.q : '' %>">
+      </form>
+
+      <!-- Nav links -->
+      <ul class="nav-links">
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="/shop">Cửa hàng</a></li>
+        <li><a href="/blog">Cẩm nang Organic</a></li>
+      </ul>
+
+      <!-- Action buttons -->
+      <div class="nav-actions">
+        <a href="/cart" class="cart-btn" id="headerCartBtn">
+          <span>🛒 Giỏ hàng</span>
+          <span class="cart-badge" id="headerCartBadge" style="display: none; background: var(--secondary); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: var(--radius-full);">0</span>
+        </a>
+
+        <% if (locals.user) { %>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <% if (user.role === 'SELLER') { %>
+              <a href="/seller/dashboard" class="btn btn-primary btn-sm" style="padding: 6px 12px; font-size: 12.5px;">
+                🏪 Kênh Bán
+              </a>
+            <% } else if (user.role === 'ADMIN') { %>
+              <a href="/admin" class="btn btn-primary btn-sm" style="padding: 6px 12px; font-size: 12.5px;">
+                ⚙️ Quản Trị
+              </a>
+            <% } else if (user.role === 'EXPERT') { %>
+              <a href="/expert" class="btn btn-primary btn-sm" style="padding: 6px 12px; font-size: 12.5px;">
+                ✍️ Viết Bài
+              </a>
+            <% } %>
+
+            <a href="/user/orders" class="btn btn-outline btn-sm" style="background: var(--surface-muted); padding: 6px 12px; font-size: 13px;">
+              👤 <%= user.fullName ? user.fullName.split(' ').slice(-1)[0] : 'Tài khoản' %>
+            </a>
+
+            <a href="/auth/logout" title="Đăng xuất" style="display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gray-200); color: var(--danger); font-size: 14px; transition: var(--transition);" onmouseover="this.style.background='#fdf2f2'" onmouseout="this.style.background='transparent'">
+              🚪
+            </a>
+          </div>
+        <% } else { %>
+          <a href="/auth/login" class="btn btn-outline btn-sm">Đăng nhập</a>
+          <a href="/auth/register" class="btn btn-primary btn-sm">Đăng ký</a>
+        <% } %>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── FLASH ALERTS ────────────────────────────────────────────────── -->
+  <div class="container">
+    <% if (locals.success && success.length) { %>
+      <div class="alert alert-success">
+        <span>✅</span>
+        <span><%= success %></span>
+      </div>
+    <% } %>
+
+    <% if (locals.error && error.length) { %>
+      <div class="alert alert-error">
+        <span>⚠️</span>
+        <span><%= error %></span>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- ─── MAIN CONTENT ────────────────────────────────────────────────── -->
+  <main>
+    <%- body %>
+  </main>
+
+  <!-- ─── FOOTER ──────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <img src="/images/logo.png" alt="ORGO Logo" style="width: 48px; height: 48px; border-radius: 50%; background: #ffffff; padding: 2px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            <div>
+              <h4 style="font-size: 20px; margin-bottom: 0;">ORGO ORGANIC</h4>
+              <span style="font-size: 11px; letter-spacing: 1px; color: var(--primary-light);">THỰC PHẨM XANH SẠCH</span>
+            </div>
+          </div>
+          <p>Hệ thống sàn thương mại điện tử chuyên cung cấp thực phẩm hữu cơ 100% đạt chuẩn chứng nhận VietGAP, USDA Organic và EU Organic.</p>
+          <p style="margin-top: 12px; font-size: 12px; color: #94a3b8;">
+            Đồ án TMĐT - Nhóm SNSD: <strong>Võ Đức Phú</strong> & <strong>Bạch Ngọc Mỹ Duyên</strong>
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Danh Mục</h4>
+          <ul class="footer-links">
+            <li><a href="/shop?cat=rau-cu">Rau củ tươi sạch</a></li>
+            <li><a href="/shop?cat=trai-cay">Trái cây hữu cơ</a></li>
+            <li><a href="/shop?cat=thit-trung">Thịt & Trứng sạch</a></li>
+            <li><a href="/shop?cat=ngu-coc">Ngũ cốc & Hạt dinh dưỡng</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Về Chúng Tôi</h4>
+          <ul class="footer-links">
+            <li><a href="/blog">Cẩm nang sống xanh</a></li>
+            <li><a href="/auth/register">Đăng ký bán hàng</a></li>
+            <li><a href="/shop">Tiêu chuẩn Organic</a></li>
+            <li><a href="#">Chính sách đổi trả</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Liên Hệ & Hỗ Trợ</h4>
+          <p>📍 Đà Nẵng, Việt Nam</p>
+          <p>📞 Hotline: 1900 8888</p>
+          <p>✉️ Email: voducphu1912005@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 ORGO Organic System. Xây dựng với Node.js, Express & MongoDB.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── TOAST NOTIFICATION CONTAINER & QUICK CART SCRIPT ─────────────── -->
+  <div id="orgo-toast-container" style="position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;"></div>
+
+  <script>
+    // Hàm thêm sản phẩm vào giỏ hàng bằng AJAX (Web Động, không reload trang)
+    async function quickAddToCart(productId, btnElement, productName) {
+      if (!btnElement) return;
+      const originalHtml = btnElement.innerHTML;
+      btnElement.classList.add('loading');
+      btnElement.innerHTML = '<span>⏳ Đang thêm...</span>';
+      
+      try {
+        const res = await fetch('/cart/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ productId, quantity: 1 })
+        });
+        
+        if (res.redirected && res.url.includes('/auth/login')) {
+          showToast('⚠️ Vui lòng đăng nhập để thêm vào giỏ hàng!', 'warning');
+          setTimeout(() => { window.location.href = '/auth/login'; }, 1000);
+          return;
+        }
+        
+        const data = await res.json();
+        if (data.success) {
+          btnElement.classList.remove('loading');
+          btnElement.classList.add('added');
+          btnElement.innerHTML = '<span>✓ Đã thêm!</span>';
+          
+          // Cập nhật số lượng trên badge giỏ hàng Realtime
+          const cartBadge = document.getElementById('headerCartBadge');
+          if (cartBadge) {
+            cartBadge.textContent = data.totalItems;
+            cartBadge.style.display = 'inline-block';
+          }
+          
+          showToast(`🌿 Đã thêm "${productName || 'Sản phẩm'}" vào giỏ hàng!`, 'success');
+          
+          setTimeout(() => {
+            btnElement.classList.remove('added');
+            btnElement.innerHTML = originalHtml;
+          }, 1800);
+        } else {
+          showToast(data.message || 'Không thể thêm sản phẩm', 'error');
+          btnElement.classList.remove('loading');
+          btnElement.innerHTML = originalHtml;
+        }
+      } catch (err) {
+        showToast('⚠️ Vui lòng đăng nhập tài khoản để mua hàng!', 'warning');
+        btnElement.classList.remove('loading');
+        btnElement.innerHTML = originalHtml;
+      }
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('orgo-toast-container');
+      if (!container) return;
+      
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        background: #FFFFFF;
+        color: var(--dark);
+        padding: 13px 18px;
+        border-radius: var(--radius-md);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+        border-left: 4px solid ${type === 'success' ? 'var(--primary)' : (type === 'warning' ? 'var(--secondary)' : 'var(--danger)')};
+        font-size: 13.5px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 280px;
+        max-width: 400px;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: auto;
+      `;
+      
+      toast.innerHTML = `<span>${type === 'success' ? '✅' : (type === 'warning' ? '⚠️' : '❌')}</span> <span>${message}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+        toast.style.opacity = '1';
+      }, 10);
+      
+      setTimeout(() => {
+        toast.style.transform = 'translateX(100%)';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
