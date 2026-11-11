@@ -1,0 +1,561 @@
+<!-- ─── 1. HERO BANNER LOFI ORGANIC (ĐI CHỢ SẠCH NGAY TẠI NHÀ) ─────────────── -->
+<section class="lf-hero-wrap">
+  <img 
+    src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=85" 
+    alt="Đi chợ nông sản sạch ORGO" 
+    class="lf-hero-bg"
+  >
+  <div class="lf-hero-overlay"></div>
+  <div class="container lf-hero-content">
+    <div class="badge-pill bg-green" style="margin-bottom: 20px; background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid rgba(134, 239, 172, 0.4);">
+      🌱 Siêu thị nông sản sạch & hữu cơ
+    </div>
+    <h1 class="lf-hero-title">
+      Đi chợ sạch<br><em>ngay tại nhà.</em>
+    </h1>
+    <p class="lf-hero-lead">
+      Rau củ, trái cây, thịt cá, trứng sữa và thảo mộc nhập trực tiếp từ các nông trại hữu cơ đạt chuẩn VietGAP & USDA. Đặt trước 16:00, nhận hàng trong ngày với chuỗi xe lạnh an toàn.
+    </p>
+    <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+      <a href="/shop" class="btn" style="background: #FFFFFF; color: #16301f; font-weight: 700; font-size: 15.5px; padding: 14px 32px; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,0.25); display: inline-flex; align-items: center; gap: 8px;">
+        <span>Mua sắm ngay</span>
+        <span>→</span>
+      </a>
+      <a href="#flash-sale" class="btn" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); color: #FFFFFF; font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 30px; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.35);">
+        🔥 Xem ưu đãi tuần này
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 2. FLASH SALE / ƯU ĐÃI CUỐI TUẦN (COUNTDOWN TIMER) ────────────────── -->
+<section id="flash-sale" style="background: #FFFFFF; border-bottom: 1px solid var(--lf-border); padding: 50px 0 60px 0;">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <div class="badge-pill bg-orange" style="margin-bottom: 8px;">
+          ⚡ Ưu đãi cuối tuần
+        </div>
+        <h2 style="font-family: 'Lora', Georgia, serif; font-size: 32px; font-weight: 700; color: #16301f; margin: 0;">
+          Giá tốt đến hết Chủ nhật
+        </h2>
+      </div>
+
+      <!-- Đồng hồ đếm ngược -->
+      <div class="lf-countdown-wrapper">
+        <span style="font-size: 13.5px; font-weight: 700; color: #16301f;">Kết thúc sau:</span>
+        <div class="lf-countdown-box">
+          <b id="cdDays">02</b>
+          <small>Ngày</small>
+        </div>
+        <div class="lf-countdown-box">
+          <b id="cdHours">14</b>
+          <small>Giờ</small>
+        </div>
+        <div class="lf-countdown-box">
+          <b id="cdMins">35</b>
+          <small>Phút</small>
+        </div>
+        <div class="lf-countdown-box">
+          <b id="cdSecs">20</b>
+          <small>Giây</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid sản phẩm ưu đãi Flash Sale -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+      <% 
+        const deals = (typeof featuredProducts !== 'undefined' && featuredProducts.length) ? featuredProducts.slice(0, 4) : [];
+        if (deals.length) {
+          deals.forEach((p, idx) => {
+            const discountPercent = [25, 20, 18, 30][idx % 4];
+            const originalPrice = p.comparePrice || Math.round(p.price * 1.25);
+      %>
+        <div class="lf-deal-card">
+          <div class="lf-deal-media">
+            <% 
+              let dealImg = (p.images && p.images[0]) || p.thumbnail || '';
+              if (!dealImg || dealImg.includes('1576045057995') || dealImg.includes('1603099837564') || (p.slug && p.slug.includes('kale'))) {
+                dealImg = '/images/cai-kale.jpg';
+              }
+            %>
+            <img src="<%= dealImg %>" alt="<%= p.name %>" loading="lazy" onerror="this.onerror=null; this.src='/images/cai-kale.jpg';">
+            <span class="lf-deal-badge">−<%= discountPercent %>%</span>
+          </div>
+          <div class="lf-deal-body">
+            <span class="lf-deal-farm">🌿 <%= (p.seller && p.seller.shopName) ? p.seller.shopName : 'BioFarm Đà Lạt' %></span>
+            <a href="/products/<%= p.slug %>" class="lf-deal-name" title="<%= p.name %>">
+              <%= p.name %>
+            </a>
+            <div class="lf-deal-prices">
+              <span class="lf-deal-now"><%= p.price ? p.price.toLocaleString('vi-VN') : 0 %>đ</span>
+              <span class="lf-deal-old"><%= originalPrice.toLocaleString('vi-VN') %>đ</span>
+            </div>
+            
+            <div class="lf-stock-bar">
+              <div class="lf-stock-progress" style="width: <%= [75, 60, 85, 45][idx % 4] %>%;"></div>
+            </div>
+            <div class="lf-stock-text">
+              <span>Đã bán <%= [42, 68, 115, 30][idx % 4] %> suất</span>
+              <span style="color: #c2410c; font-weight: 700;">Số lượng có hạn</span>
+            </div>
+
+            <button class="btn-lf-cart" onclick="quickAddToCart('<%= p._id %>')">
+              🛒 Thêm vào giỏ hàng
+            </button>
+          </div>
+        </div>
+      <%   }); 
+        } else { 
+      %>
+        <p style="grid-column: 1 / -1; text-align: center; color: #64748b; padding: 40px 0;">Đang cập nhật các deal nông sản hữu cơ mới nhất...</p>
+      <% } %>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── 3. HAI BANNER ĐÔI (DUAL STORY BANNERS) ────────────────────────────── -->
+<section style="padding: 50px 0;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+      
+      <!-- Banner 1: Nông sản tươi mỗi sáng (Dark) -->
+      <a href="/shop" style="position: relative; border-radius: 22px; overflow: hidden; min-height: 260px; display: flex; align-items: flex-end; padding: 32px; text-decoration: none; color: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.12);">
+        <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=800&q=80" 
+             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+             onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22, 48, 31, 0.2) 0%, rgba(22, 48, 31, 0.88) 100%);"></div>
+        <div style="position: relative; z-index: 2;">
+          <span class="badge-pill bg-orange" style="margin-bottom: 8px;">Tươi mỗi sáng</span>
+          <h3 style="font-family: 'Lora', Georgia, serif; font-size: 24px; font-weight: 700; color: #fff; margin: 4px 0 6px 0;">
+            Rau Củ & Nông Sản Về Kho Mỗi Sáng
+          </h3>
+          <p style="font-size: 14px; color: #e2e8f0; margin-bottom: 12px;">Thu hoạch từ các nhà vườn Đà Lạt & Mộc Châu lúc 4:00 sáng</p>
+          <span style="font-weight: 700; font-size: 14px; color: #86efac;">Khám phá rau củ →</span>
+        </div>
+      </a>
+
+      <!-- Banner 2: Trái cây nhập khẩu & bản địa (Light/Green) -->
+      <a href="/shop" style="position: relative; border-radius: 22px; overflow: hidden; min-height: 260px; display: flex; align-items: flex-end; padding: 32px; text-decoration: none; color: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.12);">
+        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=800&q=80" 
+             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+             onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 56, 56, 0.2) 0%, rgba(8, 56, 56, 0.88) 100%);"></div>
+        <div style="position: relative; z-index: 2;">
+          <span class="badge-pill bg-green" style="margin-bottom: 8px;">Hàng mới về</span>
+          <h3 style="font-family: 'Lora', Georgia, serif; font-size: 24px; font-weight: 700; color: #fff; margin: 4px 0 6px 0;">
+            Trái Cây Hữu Cơ Mùa Thu Hoạch
+          </h3>
+          <p style="font-size: 14px; color: #e2e8f0; margin-bottom: 12px;">Dâu tây Hana, Bơ 034, Cam sành mọng nước chuẩn VietGAP</p>
+          <span style="font-weight: 700; font-size: 14px; color: #fde047;">Xem danh mục trái cây →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── 4. MUA THEO DANH MỤC (PILL TABS & PRODUCT SHOWCASE) ───────────────── -->
+<section style="padding: 40px 0 60px 0;">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #256b40; margin-bottom: 4px;">
+          DANH MỤC TUYỂN CHỌN
+        </div>
+        <h2 style="font-family: 'Lora', Georgia, serif; font-size: 30px; font-weight: 700; color: #16301f; margin: 0;">
+          Mua Theo Nhóm Nông Sản
+        </h2>
+      </div>
+      <a href="/shop" style="color: #256b40; font-weight: 700; font-size: 14px; text-decoration: none;">
+        Xem toàn bộ cửa hàng →
+      </a>
+    </div>
+
+    <!-- Category Pill Buttons -->
+    <div style="display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 8px;">
+      <button class="cat-pill-btn active" onclick="filterCategory('all', this)" style="background: #16301f; color: #fff; border: none; padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">
+        🌿 Tất cả nông sản
+      </button>
+      <% if (typeof categories !== 'undefined' && categories.length) { %>
+        <% categories.forEach(c => { %>
+          <button class="cat-pill-btn" onclick="filterCategory('<%= c._id %>', this)" style="background: #FFFFFF; color: #334155; border: 1.5px solid var(--lf-border); padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; transition: all 0.2s;">
+            <%= c.icon || '🥬' %> <%= c.name %>
+          </button>
+        <% }) %>
+      <% } else { %>
+        <button class="cat-pill-btn" style="background: #FFFFFF; color: #334155; border: 1.5px solid var(--lf-border); padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; white-space: nowrap;">🥬 Rau lá & Củ quả</button>
+        <button class="cat-pill-btn" style="background: #FFFFFF; color: #334155; border: 1.5px solid var(--lf-border); padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; white-space: nowrap;">🍎 Trái cây miệt vườn</button>
+        <button class="cat-pill-btn" style="background: #FFFFFF; color: #334155; border: 1.5px solid var(--lf-border); padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; white-space: nowrap;">🍵 Thảo mộc & Trà khô</button>
+      <% } %>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="homeProductGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px;">
+      <% 
+        const allProds = (typeof newArrivals !== 'undefined' && newArrivals.length) ? newArrivals : featuredProducts;
+        if (allProds && allProds.length) {
+          allProds.forEach(p => { 
+      %>
+        <div class="product-item" data-category="<%= p.category ? p.category.toString() : '' %>" style="background: #FFFFFF; border-radius: 18px; border: 1px solid var(--lf-border); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; position: relative;">
+          
+          <a href="/products/<%= p.slug %>" style="display: block; aspect-ratio: 1/1; overflow: hidden; background: #f8fafc; position: relative;">
+            <% 
+              let gridImg = (p.images && p.images[0]) || p.thumbnail || '';
+              if (!gridImg || gridImg.includes('1576045057995') || gridImg.includes('1603099837564') || (p.slug && p.slug.includes('kale'))) {
+                gridImg = '/images/cai-kale.jpg';
+              }
+            %>
+            <img src="<%= gridImg %>" alt="<%= p.name %>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'" onerror="this.onerror=null; this.src='/images/cai-kale.jpg';" />
+            <span style="position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.92); color: #166534; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 20px; border: 1px solid #bbf7d0;">
+              ✓ VietGAP
+            </span>
+          </a>
+
+          <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1;">
+            <div style="font-size: 11.5px; color: #256b40; font-weight: 700; margin-bottom: 4px;">
+              <%= (p.seller && p.seller.shopName) ? p.seller.shopName : 'Nông Trại Hữu Cơ' %>
+            </div>
+            <a href="/products/<%= p.slug %>" style="font-size: 15px; font-weight: 700; color: #0f172a; text-decoration: none; margin-bottom: 8px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              <%= p.name %>
+            </a>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+              <div>
+                <span style="font-size: 17px; font-weight: 800; color: #16301f;">
+                  <%= p.price ? p.price.toLocaleString('vi-VN') : 0 %>đ
+                </span>
+                <span style="font-size: 12px; color: #64748b;">/<%= p.unit || 'gói' %></span>
+              </div>
+              <button onclick="quickAddToCart('<%= p._id %>')" title="Thêm vào giỏ" 
+                      style="width: 36px; height: 36px; border-radius: 50%; background: #f0fdf4; border: 1.5px solid #86efac; color: #166534; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;"
+                      onmouseover="this.style.background='#256b40'; this.style.color='#fff';"
+                      onmouseout="this.style.background='#f0fdf4'; this.style.color='#166534';">
+                +
+              </button>
+            </div>
+          </div>
+
+        </div>
+      <%   });
+        } 
+      %>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── 5. GÓI GIỎ RAU ĐỊNH KỲ (LOFI ORGANIC SUBSCRIPTION BOXES) ───────────── -->
+<section class="container">
+  <div class="lf-plans-section">
+    <div style="padding: 0 40px; margin-bottom: 40px;">
+      <div style="max-width: 600px;">
+        <span class="badge-pill bg-green" style="background: rgba(34, 197, 94, 0.25); color: #86efac; border-color: rgba(134, 239, 172, 0.4); margin-bottom: 12px;">
+          🧺 Giỏ rau định kỳ mỗi tuần
+        </span>
+        <h2 style="font-family: 'Lora', Georgia, serif; font-size: 38px; font-weight: 700; color: #FFFFFF; margin: 0 0 14px 0;">
+          Một lần đăng ký, rau tươi tới cửa mỗi tuần.
+        </h2>
+        <p style="color: #cbd5e1; font-size: 16px; margin: 0; line-height: 1.6;">
+          Chúng tôi tự chọn rau củ quả tươi nhất theo mùa từ các nông trại đạt chuẩn và giao chuỗi lạnh đều đặn. Bạn có thể tạm dừng hoặc đổi lịch bất cứ lúc nào.
+        </p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding: 0 40px;">
+      
+      <!-- Gói 1: Cơ bản -->
+      <div class="lf-plan-card">
+        <div class="lf-plan-title">
+          <span>Gói Cơ Bản</span>
+          <span style="font-size: 12px; color: #86efac; font-weight: 600;">2–3 người ăn</span>
+        </div>
+        <div class="lf-plan-price">
+          249.000 <span style="font-size: 16px; font-weight: 500; color: #cbd5e1;">đ/tuần</span>
+        </div>
+        <ul class="lf-plan-features">
+          <li><span>✓</span> 6 loại rau củ hữu cơ theo mùa</li>
+          <li><span>✓</span> Định lượng 4–5kg tươi nguyên cành</li>
+          <li><span>✓</span> Giao định kỳ 1 lần / tuần</li>
+          <li><span>✓</span> Miễn phí giao hàng chuỗi lạnh</li>
+        </ul>
+        <a href="/shop?subscription=basic" class="btn" style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; padding: 12px; border-radius: 30px; text-decoration: none; text-align: center; margin-top: auto; border: 1px solid rgba(255,255,255,0.3);">
+          Đăng ký Gói Cơ Bản
+        </a>
+      </div>
+
+      <!-- Gói 2: Gia đình (Best Seller) -->
+      <div class="lf-plan-card popular">
+        <div class="lf-plan-title">
+          <span>Gói Gia Đình</span>
+          <span class="badge-pill bg-orange">★ Phổ biến nhất</span>
+        </div>
+        <div class="lf-plan-price">
+          399.000 <span style="font-size: 16px; font-weight: 500; color: #64748b;">đ/tuần</span>
+        </div>
+        <ul class="lf-plan-features" style="color: #334155;">
+          <li><span style="color: #16a34a;">✓</span> 10 loại rau củ & trái cây tươi</li>
+          <li><span style="color: #16a34a;">✓</span> Định lượng 7–9kg cho cả nhà (4–5 người)</li>
+          <li><span style="color: #16a34a;">✓</span> Được đổi món không thích trước 24h</li>
+          <li><span style="color: #16a34a;">✓</span> Tặng kèm trứng gà đồi thảo mộc</li>
+        </ul>
+        <a href="/shop?subscription=family" class="btn" style="background: #256b40; color: #fff; font-weight: 700; padding: 13px; border-radius: 30px; text-decoration: none; text-align: center; margin-top: auto; box-shadow: 0 4px 14px rgba(37, 107, 64, 0.35);">
+          Đăng ký Gói Gia Đình
+        </a>
+      </div>
+
+      <!-- Gói 3: Cao cấp -->
+      <div class="lf-plan-card">
+        <div class="lf-plan-title">
+          <span>Gói Cao Cấp</span>
+          <span style="font-size: 12px; color: #fde047; font-weight: 600;">Gourmet & Healthy</span>
+        </div>
+        <div class="lf-plan-price">
+          599.000 <span style="font-size: 16px; font-weight: 500; color: #cbd5e1;">đ/tuần</span>
+        </div>
+        <ul class="lf-plan-features">
+          <li><span>✓</span> 14 loại nông sản & trái cây đặc sản hiếm</li>
+          <li><span>✓</span> Kèm công thức nấu món ăn từ Chuyên gia</li>
+          <li><span>✓</span> Giao 2 lần/tuần để đảm bảo tươi mới tuyệt đối</li>
+          <li><span>✓</span> Ưu tiên nông sản hữu cơ xuất khẩu</li>
+        </ul>
+        <a href="/shop?subscription=premium" class="btn" style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; padding: 12px; border-radius: 30px; text-decoration: none; text-align: center; margin-top: auto; border: 1px solid rgba(255,255,255,0.3);">
+          Đăng ký Gói Cao Cấp
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── 6. 4 LÝ DO CHỌN ORGO (REASONS / COMMITMENTS) ───────────────────────── -->
+<section style="background: #FFFFFF; padding: 70px 0; border-top: 1px solid var(--lf-border); border-bottom: 1px solid var(--lf-border);">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #256b40; margin-bottom: 6px;">
+          CAM KẾT MINH BẠCH
+        </div>
+        <h2 style="font-family: 'Lora', Georgia, serif; font-size: 34px; font-weight: 700; color: #16301f; margin: 0;">
+          Sạch từ gốc, rõ từng lô hàng.
+        </h2>
+      </div>
+      <p style="color: #64748b; font-size: 15px; max-width: 500px; margin: 0; line-height: 1.6;">
+        Mỗi túi rau củ quả đến bàn ăn của bạn đều có thể kiểm chứng nguồn gốc đất trồng, phân bón và ngày cắt tỉa.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+      
+      <div class="lf-reason-box">
+        <span class="lf-reason-num">01</span>
+        <div class="lf-reason-title">Truy xuất từng lô hàng</div>
+        <div class="lf-reason-desc">Quét mã QR trên tem bao bì để xem camera trực tiếp tại nông trại, nhật ký chăm sóc và kết quả kiểm nghiệm.</div>
+      </div>
+
+      <div class="lf-reason-box">
+        <span class="lf-reason-num">02</span>
+        <div class="lf-reason-title">Kiểm định trước đóng gói</div>
+        <div class="lf-reason-desc">Từng lô rau củ được test nhanh dư lượng nitrate, kim loại nặng và thuốc BVTV trước khi chuyển vào kho lạnh.</div>
+      </div>
+
+      <div class="lf-reason-box">
+        <span class="lf-reason-num">03</span>
+        <div class="lf-reason-title">Xe lạnh giao trong ngày</div>
+        <div class="lf-reason-desc">Đặt trước 16:00, nhận hàng trước 19:30. Nông sản luôn được bảo quản từ 4°C – 8°C trên toàn bộ hành trình.</div>
+      </div>
+
+      <div class="lf-reason-box">
+        <span class="lf-reason-num">04</span>
+        <div class="lf-reason-title">Không tươi, hoàn tiền 24h</div>
+        <div class="lf-reason-desc">Nếu rau bị dập nát hoặc không đúng cam kết, chỉ cần chụp ảnh gửi hỗ trợ — chúng tôi đổi mới hoặc hoàn tiền ngay 100%.</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── 7. ĐÁNH GIÁ KHÁCH HÀNG (REVIEWS & TESTIMONIALS) ───────────────────── -->
+<section style="padding: 70px 0; text-align: center;">
+  <div class="container" style="max-width: 860px;">
+    <div style="font-size: 26px; color: #ED9D26; letter-spacing: 4px; margin-bottom: 16px;">
+      ★★★★★
+    </div>
+    <blockquote style="font-family: 'Lora', Georgia, serif; font-size: 24px; font-weight: 500; font-style: italic; color: #16301f; line-height: 1.5; margin-bottom: 24px;">
+      “Rau hữu cơ của ORGO có vị ngọt thanh tự nhiên, để ngăn mát tủ lạnh 7 ngày vẫn giòn ngọt mà không bị ủng nước như rau chợ thông thường. Cả nhà mình rất an tâm khi nấu ăn cho các bé!”
+    </blockquote>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 14px;">
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" 
+           alt="Chị Minh Hạnh" 
+           style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #256b40;" />
+      <div style="text-align: left;">
+        <strong style="color: #16301f; font-size: 15px; display: block;">Chị Lê Thị Minh Hạnh</strong>
+        <span style="color: #64748b; font-size: 13px;">Quận 2, TP.HCM · Đăng ký Giỏ Gia Đình 8 tháng</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 8. CẨM NANG & GÓC BẾP HỮU CƠ (LATEST ARTICLES) ────────────────────── -->
+<% if (typeof latestArticles !== 'undefined' && latestArticles.length) { %>
+<section style="background: #FFFFFF; padding: 60px 0 80px 0; border-top: 1px solid var(--lf-border);">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #256b40; margin-bottom: 4px;">
+          GÓC BẾP HỮU CƠ
+        </div>
+        <h2 style="font-family: 'Lora', Georgia, serif; font-size: 30px; font-weight: 700; color: #16301f; margin: 0;">
+          Cẩm Nang Sống Xanh & Dinh Dưỡng
+        </h2>
+      </div>
+      <a href="/blog" style="color: #256b40; font-weight: 700; font-size: 14px; text-decoration: none;">
+        Xem tất cả bài viết →
+      </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px;">
+      
+      <!-- Bài viết nổi bật lớn -->
+      <% const mainArticle = latestArticles[0]; %>
+      <div style="background: var(--lf-cream); border-radius: 20px; overflow: hidden; border: 1px solid var(--lf-border); display: flex; flex-direction: column;">
+        <a href="/blog/<%= mainArticle.slug %>" style="display: block; aspect-ratio: 16/10; overflow: hidden;">
+          <img src="<%= mainArticle.thumbnail || 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80' %>" 
+               alt="<%= mainArticle.title %>" 
+               style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;"
+               onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+        <div style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1;">
+          <span style="font-size: 12px; color: #256b40; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+            📖 <%= mainArticle.category || 'BLOG' %> • <%= new Date(mainArticle.publishedAt || mainArticle.createdAt).toLocaleDateString('vi-VN') %>
+          </span>
+          <a href="/blog/<%= mainArticle.slug %>" style="font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 700; color: #16301f; text-decoration: none; margin-bottom: 12px; line-height: 1.35;">
+            <%= mainArticle.title %>
+          </a>
+          <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+            <%= mainArticle.summary || (mainArticle.content ? mainArticle.content.slice(0, 140) + '...' : '') %>
+          </p>
+          <a href="/blog/<%= mainArticle.slug %>" style="font-weight: 700; font-size: 14px; color: #256b40; text-decoration: none; margin-top: auto;">
+            Đọc bài viết chi tiết →
+          </a>
+        </div>
+      </div>
+
+      <!-- Danh sách bài viết bên phải -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <% latestArticles.slice(1, 4).forEach(a => { %>
+          <div style="display: flex; gap: 16px; align-items: center; background: #FFFFFF; padding: 16px; border-radius: 16px; border: 1px solid var(--lf-border);">
+            <a href="/blog/<%= a.slug %>" style="width: 100px; height: 100px; border-radius: 12px; overflow: hidden; flex-shrink: 0; display: block;">
+              <img src="<%= a.thumbnail || 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=300&q=80' %>" 
+                   alt="<%= a.title %>" style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            <div>
+              <span style="font-size: 11.5px; color: #256b40; font-weight: 700; text-transform: uppercase;">
+                <%= a.category || 'MẸO SỐNG KHỎE' %>
+              </span>
+              <a href="/blog/<%= a.slug %>" style="font-size: 15px; font-weight: 700; color: #0f172a; text-decoration: none; display: block; margin: 4px 0 6px 0; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                <%= a.title %>
+              </a>
+              <span style="font-size: 12px; color: #94a3b8;">
+                <%= new Date(a.publishedAt || a.createdAt).toLocaleDateString('vi-VN') %>
+              </span>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ─── JAVASCRIPT HỖ TRỢ TRANG CHỦ (COUNTDOWN & FILTER & QUICK ADD) ──────── -->
+<script>
+  // 1. Đồng hồ đếm ngược Flash Sale
+  function startCountdown() {
+    // Đặt mục tiêu là 2 ngày 14 giờ từ bây giờ
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 2);
+    targetDate.setHours(targetDate.getHours() + 14);
+
+    function update() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) return;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cdDays').textContent = String(days).padStart(2, '0');
+      document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cdMins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('cdSecs').textContent = String(secs).padStart(2, '0');
+    }
+
+    setInterval(update, 1000);
+    update();
+  }
+  startCountdown();
+
+  // 2. Lọc nhanh sản phẩm theo danh mục Pill Tabs
+  function filterCategory(catId, btn) {
+    document.querySelectorAll('.cat-pill-btn').forEach(b => {
+      b.style.background = '#FFFFFF';
+      b.style.color = '#334155';
+      b.style.borderColor = 'var(--lf-border)';
+    });
+    btn.style.background = '#16301f';
+    btn.style.color = '#FFFFFF';
+    btn.style.borderColor = '#16301f';
+
+    const items = document.querySelectorAll('#homeProductGrid .product-item');
+    items.forEach(item => {
+      if (catId === 'all' || item.getAttribute('data-category') === catId) {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // 3. Fallback hình ảnh sản phẩm bị lỗi
+  document.querySelectorAll('.lf-deal-media img, #homeProductGrid img').forEach(function(img) {
+    if (img.complete && img.naturalWidth === 0) {
+      img.src = '/images/cai-kale.jpg';
+    }
+  });
+
+  // 4. Nút thêm nhanh vào giỏ hàng AJAX
+  async function quickAddToCart(productId) {
+    try {
+      const res = await fetch('/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId, quantity: 1 })
+      });
+      const data = await res.json();
+      if (data.success) {
+        // Cập nhật số lượng trên header badge
+        const badge = document.getElementById('headerCartBadge');
+        if (badge) {
+          badge.style.display = 'inline-block';
+          badge.textContent = data.cartCount || (parseInt(badge.textContent || 0) + 1);
+        }
+        alert('🌿 Đã thêm sản phẩm vào giỏ hàng thành công!');
+      } else {
+        alert(data.message || 'Không thể thêm vào giỏ');
+      }
+    } catch (err) {
+      alert('Đã thêm sản phẩm vào giỏ hàng!');
+    }
+  }
+</script>

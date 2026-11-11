@@ -1,0 +1,41 @@
+<div style="margin-bottom: 24px; text-align: center;">
+  <span style="font-size: 36px; display: block; margin-bottom: 10px;">📩</span>
+  <h1 style="font-size: 24px; font-weight: 800; color: var(--color-text); margin-bottom: 6px;">
+    Xác thực mã OTP
+  </h1>
+  <p style="font-size: 14px; color: var(--color-text-muted);">
+    Vui lòng nhập mã số xác thực vừa được gửi đến email của bạn
+  </p>
+</div>
+
+<form action="/auth/verify-otp" method="POST">
+  <div class="form-group" style="margin-bottom: 24px;">
+    <input 
+      type="text" 
+      id="otp" 
+      name="otp" 
+      class="form-input" 
+      placeholder="123456" 
+      maxlength="6" 
+      style="text-align: center; font-size: 26px; letter-spacing: 10px; font-weight: 800; padding: 14px; color: var(--color-primary);" 
+      required
+    >
+  </div>
+
+  <button type="submit" class="btn-submit">
+    <span>Xác nhận & Kích hoạt tài khoản</span>
+    <span style="font-size: 17px;">✓</span>
+  </button>
+</form>
+
+<form action="/auth/resend-otp" method="POST" style="text-align: center; margin-top: 18px;">
+  <button type="submit" class="auth-link" style="background: none; border: none; cursor: pointer;">
+    🔄 Chưa nhận được? Gửi lại mã OTP
+  </button>
+</form>
+
+<div class="auth-footer">
+  <a href="/auth/register" class="auth-link">
+    ← Quay lại trang đăng ký
+  </a>
+</div>

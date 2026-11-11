@@ -1,0 +1,78 @@
+<!-- ─── CHI TIẾT BÀI VIẾT – LOFI ORGANIC STYLE ─────────────────────── -->
+
+<!-- Breadcrumb bar -->
+<div style="background: #f6f2e9; border-bottom: 1px solid var(--lf-border); padding: 12px 0;">
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+      <a href="/" style="color: #256b40; font-weight: 600; text-decoration: none;">Trang chủ</a>
+      <span style="color: #94a3b8;">→</span>
+      <a href="/blog" style="color: #256b40; font-weight: 600; text-decoration: none;">Cẩm nang Organic</a>
+      <span style="color: #94a3b8;">→</span>
+      <span style="color: #64748b; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; max-width: 300px;"><%= article.title %></span>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="padding-top: 44px; padding-bottom: 80px; max-width: 880px;">
+
+  <!-- Category badge & meta -->
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;">
+    <span class="badge-pill bg-green">
+      📖 <%= article.category ? article.category.name : 'Kiến thức hữu cơ' %>
+    </span>
+    <span style="font-size: 13px; color: #64748b; display: flex; align-items: center; gap: 6px;">
+      📅 <%= new Date(article.createdAt).toLocaleDateString('vi-VN') %>
+    </span>
+    <% if (article.viewCount) { %>
+      <span style="font-size: 13px; color: #64748b; display: flex; align-items: center; gap: 6px;">
+        👁️ <%= article.viewCount.toLocaleString('vi-VN') %> lượt đọc
+      </span>
+    <% } %>
+  </div>
+
+  <!-- Tiêu đề -->
+  <h1 style="font-family: 'Lora', Georgia, serif; font-size: 40px; font-weight: 700; color: #16301f; margin: 0 0 28px 0; line-height: 1.25;">
+    <%= article.title %>
+  </h1>
+
+  <!-- Thumbnail chính -->
+  <div style="border-radius: 22px; overflow: hidden; margin-bottom: 40px; border: 1px solid var(--lf-border); aspect-ratio: 16/9;">
+    <img src="<%= article.thumbnail || 'https://images.unsplash.com/photo-1592417817098-8f3d69109853?auto=format&fit=crop&w=1200&q=80' %>" 
+         alt="<%= article.title %>" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+  </div>
+
+  <!-- Nội dung bài viết -->
+  <div style="background: #FFFFFF; border-radius: 20px; border: 1px solid var(--lf-border); padding: 44px; box-shadow: 0 4px 16px rgba(22, 48, 31, 0.04);">
+    
+    <!-- Summary / Excerpt nổi bật -->
+    <% if (article.excerpt || article.summary) { %>
+      <div style="background: #f0fdf4; border-left: 4px solid #256b40; padding: 20px 24px; border-radius: 0 12px 12px 0; margin-bottom: 32px;">
+        <p style="font-family: 'Lora', Georgia, serif; font-size: 18px; font-weight: 500; font-style: italic; color: #16301f; line-height: 1.7; margin: 0;">
+          <%= article.excerpt || article.summary %>
+        </p>
+      </div>
+    <% } %>
+
+    <!-- Nội dung chính -->
+    <div style="font-size: 16.5px; line-height: 1.85; color: #334155; white-space: pre-line;">
+      <%- article.content %>
+    </div>
+
+  </div>
+
+  <!-- Phần điều hướng cuối bài -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 44px; padding-top: 32px; border-top: 1.5px solid var(--lf-border); flex-wrap: wrap; gap: 16px;">
+    <a href="/blog" style="display: inline-flex; align-items: center; gap: 8px; background: #f6f2e9; color: #16301f; border: 1.5px solid var(--lf-border); padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s;"
+       onmouseover="this.style.background='#16301f'; this.style.color='#fff'; this.style.borderColor='#16301f';"
+       onmouseout="this.style.background='#f6f2e9'; this.style.color='#16301f'; this.style.borderColor='var(--lf-border)';">
+      ← Xem toàn bộ cẩm nang
+    </a>
+    <a href="/shop" style="display: inline-flex; align-items: center; gap: 8px; background: #16301f; color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 14px; text-decoration: none; box-shadow: 0 4px 14px rgba(22,48,31,0.2); transition: all 0.2s;"
+       onmouseover="this.style.background='#256b40'; this.style.transform='translateY(-1px)';"
+       onmouseout="this.style.background='#16301f'; this.style.transform='';">
+      🌿 Mua nông sản hữu cơ →
+    </a>
+  </div>
+
+</div>
