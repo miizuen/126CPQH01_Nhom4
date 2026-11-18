@@ -1,0 +1,85 @@
+<div style="margin-bottom: 28px;">
+  <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #107070; margin-bottom: 4px;">
+    ĐƠN ĐẶT NÔNG SẢN
+  </div>
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: #083838; margin: 0;">
+    Quản Lý & Xử Lý Đơn Hàng
+  </h1>
+  <p style="color: #64748b; font-size: 14.5px; margin: 6px 0 0 0;">
+    Cập nhật tiến độ đóng gói và giao hàng chuỗi lạnh cho khách hàng
+  </p>
+</div>
+
+<div style="background: #FFFFFF; border-radius: 20px; padding: 28px; border: 1px solid #E2DFD7; box-shadow: 0 4px 12px rgba(16, 112, 112, 0.03);">
+  <% if (typeof orders !== 'undefined' && orders.length) { %>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+          <tr style="font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; border-bottom: 1.5px solid #E2DFD7;">
+            <th style="padding: 12px 14px;">Mã đơn</th>
+            <th style="padding: 12px 14px;">Ngày đặt hàng</th>
+            <th style="padding: 12px 14px;">Thanh toán</th>
+            <th style="padding: 12px 14px;">Tổng thu</th>
+            <th style="padding: 12px 14px;">Trạng thái</th>
+            <th style="padding: 12px 14px; text-align: right;">Cập nhật tiến độ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.forEach(o => { %>
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+              <td style="padding: 16px 14px;">
+                <strong style="color: #083838; font-size: 14.5px;">#<%= o._id.toString().slice(-8).toUpperCase() %></strong>
+              </td>
+              <td style="padding: 16px 14px; font-size: 13px; color: #64748b;">
+                <%= new Date(o.createdAt).toLocaleDateString('vi-VN') %>
+              </td>
+              <td style="padding: 16px 14px; font-size: 13px; font-weight: 600; color: #334155;">
+                <%= o.paymentMethod === 'COD' ? '💵 Khi nhận hàng (COD)' : '💳 Chuyển khoản Online' %>
+              </td>
+              <td style="padding: 16px 14px; font-weight: 800; font-size: 15px; color: #107070;">
+                <%= o.total ? o.total.toLocaleString('vi-VN') : 0 %> đ
+              </td>
+              <td style="padding: 16px 14px;">
+                <% if (o.status === 'DELIVERED') { %>
+                  <span style="background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                    ✓ Đã giao thành công
+                  </span>
+                <% } else if (o.status === 'SHIPPING') { %>
+                  <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                    🚚 Đang giao hàng
+                  </span>
+                <% } else if (o.status === 'CONFIRMED') { %>
+                  <span style="background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                    📦 Đã xác nhận đơn
+                  </span>
+                <% } else { %>
+                  <span style="background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                    Chờ duyệt
+                  </span>
+                <% } %>
+              </td>
+              <td style="padding: 16px 14px; text-align: right;">
+                <form action="/seller/orders/<%= o._id %>/status" method="POST" style="display: inline-flex; align-items: center; gap: 8px; margin: 0;">
+                  <select name="status" style="padding: 7px 12px; font-size: 13px; border: 1.5px solid #cbd5e1; border-radius: 12px; background: #fff; outline: none; font-weight: 600;">
+                    <option value="CONFIRMED" <%= o.status === 'CONFIRMED' ? 'selected' : '' %>>📦 Chuẩn bị đóng gói</option>
+                    <option value="SHIPPING" <%= o.status === 'SHIPPING' ? 'selected' : '' %>>🚚 Đang giao hàng</option>
+                    <option value="DELIVERED" <%= o.status === 'DELIVERED' ? 'selected' : '' %>>✓ Đã giao thành công</option>
+                  </select>
+                  <button type="submit" style="background: #107070; color: #fff; font-size: 13px; font-weight: 700; border: none; padding: 7px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;">
+                    Lưu
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div style="text-align: center; padding: 60px 20px; color: #64748b;">
+      <div style="font-size: 48px; margin-bottom: 12px;">🧺</div>
+      <h3 style="font-size: 18px; font-weight: 700; color: #083838; margin-bottom: 6px;">Chưa có đơn hàng nào cần xử lý</h3>
+      <p style="color: #64748b; font-size: 14px;">Đơn hàng nông sản hữu cơ của khách sẽ được hiển thị và cập nhật tại đây.</p>
+    </div>
+  <% } %>
+</div>

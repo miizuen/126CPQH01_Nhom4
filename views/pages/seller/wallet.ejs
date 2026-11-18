@@ -1,0 +1,312 @@
+<div style="margin-bottom: 28px;">
+  <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #107070; margin-bottom: 4px;">
+    Tài Chính Nông Trại
+  </div>
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: #083838; margin: 0;">
+    Ví Doanh Thu & Yêu Cầu Rút Tiền
+  </h1>
+  <p style="color: #64748b; font-size: 14.5px; margin: 6px 0 0 0;">
+    Quản lý dòng tiền kinh doanh nông sản hữu cơ và chuyển đổi lợi nhuận về tài khoản ngân hàng
+  </p>
+</div>
+
+<!-- ─── TOP CARDS GRID ───────────────────────────────────────────────────── -->
+<div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; margin-bottom: 36px; align-items: start;">
+  
+  <!-- CỘT TRÁI: THẺ SINH THÁI ECO WALLET CARD & THỐNG KÊ -->
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    
+    <!-- Eco Debit Card Premium -->
+    <div style="background: linear-gradient(135deg, #083838 0%, #107070 50%, #166060 100%); border-radius: 20px; padding: 28px 32px; color: #FFFFFF; position: relative; overflow: hidden; box-shadow: 0 16px 36px rgba(8, 56, 56, 0.22); border: 1px solid rgba(172, 219, 219, 0.3);">
+      
+      <!-- Họa tiết vân lá chìm trang trí nền -->
+      <div style="position: absolute; right: -20px; bottom: -20px; font-size: 140px; opacity: 0.08; pointer-events: none; transform: rotate(-15deg); user-select: none;">
+        🌿
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; position: relative;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid rgba(255, 255, 255, 0.4);">
+            🌱
+          </div>
+          <div>
+            <div style="font-size: 14px; font-weight: 800; letter-spacing: 0.5px;">ORGO ECO PAY</div>
+            <div style="font-size: 10.5px; color: #ACDBDB; letter-spacing: 1px;">ORGANIC FARM MERCHANT</div>
+          </div>
+        </div>
+        <div style="background: rgba(237, 157, 38, 0.25); border: 1px solid rgba(237, 157, 38, 0.6); color: #F9DDB3; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px;">
+          ✓ ĐÃ ĐỐI SOÁT
+        </div>
+      </div>
+
+      <div style="margin-bottom: 24px; position: relative;">
+        <div style="font-size: 12.5px; text-transform: uppercase; letter-spacing: 1px; color: #ACDBDB; font-weight: 600; margin-bottom: 6px;">
+          Số Dư Khả Dụng Có Thể Rút
+        </div>
+        <div style="font-size: 38px; font-weight: 800; color: #ED9D26; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.15);">
+          <%= ((wallet && wallet.balance) || 0).toLocaleString('vi-VN') %> <span style="font-size: 24px; font-weight: 600; color: #F9DDB3;">đ</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; position: relative; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 16px;">
+        <div>
+          <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #ACDBDB; margin-bottom: 2px;">CHỦ TÀI KHOẢN VÍ</div>
+          <div style="font-size: 14px; font-weight: 700; color: #FFFFFF;"><%= (locals.user && user.fullName) ? user.fullName.toUpperCase() : 'NÔNG TRẠI HỮU CƠ' %></div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #ACDBDB; margin-bottom: 2px;">TẠM GIỮ (CHỜ XỬ LÝ)</div>
+          <div style="font-size: 14px; font-weight: 700; color: #FFFFFF;"><%= ((wallet && wallet.lockedAmount) || 0).toLocaleString('vi-VN') %> đ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hộp thông tin bảo chứng an toàn -->
+    <div style="background: #FFFFFF; border-radius: 16px; padding: 20px 24px; border: 1px solid #E2DFD7; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+      <div style="width: 44px; height: 44px; border-radius: 12px; background: #e8f5f5; color: #107070; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">
+        🛡️
+      </div>
+      <div>
+        <div style="font-size: 13.5px; font-weight: 700; color: #083838;">Quy định rút tiền nông sản ORGO</div>
+        <div style="font-size: 12.5px; color: #64748b; margin-top: 2px; line-height: 1.45;">
+          Tiền đơn hàng giao thành công sẽ được tự động cộng vào ví. Yêu cầu rút tiền được kế toán xử lý tự động qua NAPAS 24/7 (tối đa trong 2 giờ).
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CỘT PHẢI: FORM YÊU CẦU RÚT TIỀN VỀ NGÂN HÀNG -->
+  <div style="background: #FFFFFF; border-radius: 20px; padding: 30px; border: 1px solid #E2DFD7; box-shadow: 0 4px 16px rgba(16, 112, 112, 0.05);">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1.5px solid #F4F3EF; padding-bottom: 14px;">
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: #083838; margin: 0; display: flex; align-items: center; gap: 8px;">
+        <span>🏦</span> Lập Lệnh Rút Tiền
+      </h3>
+      <span style="font-size: 12px; color: #64748b; background: #F4F3EF; padding: 3px 10px; border-radius: 20px; font-weight: 600;">
+        Miễn phí chuyển khoản
+      </span>
+    </div>
+
+    <form id="payoutForm" action="/seller/wallet/payout" method="POST">
+      <!-- Số tiền rút -->
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 8px;">
+          Số tiền muốn rút (VNĐ) <span style="color: #D1757B;">*</span>
+        </label>
+        <div style="position: relative;">
+          <input type="number" id="payoutAmountInput" name="amount" required min="50000" max="<%= ((wallet && wallet.balance) || 0) %>"
+                 placeholder="Tối thiểu 50,000 đ"
+                 style="width: 100%; padding: 12px 50px 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 16px; font-weight: 700; color: #107070; outline: none; transition: border 0.2s;" />
+          <span style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-weight: 700; color: #94a3b8; font-size: 14px;">
+            VNĐ
+          </span>
+        </div>
+        
+        <!-- Nút chọn nhanh số tiền -->
+        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+          <button type="button" onclick="setPayoutAmount(200000)" style="background: #F4F3EF; border: 1px solid #E2DFD7; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;">
+            200.000đ
+          </button>
+          <button type="button" onclick="setPayoutAmount(500000)" style="background: #F4F3EF; border: 1px solid #E2DFD7; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;">
+            500.000đ
+          </button>
+          <button type="button" onclick="setPayoutAmount(1000000)" style="background: #F4F3EF; border: 1px solid #E2DFD7; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;">
+            1.000.000đ
+          </button>
+          <button type="button" onclick="setPayoutAmount(<%= ((wallet && wallet.balance) || 0) %>)" style="background: #e8f5f5; border: 1px solid #ACDBDB; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 700; color: #107070; cursor: pointer; transition: all 0.2s;">
+            Rút toàn bộ
+          </button>
+        </div>
+      </div>
+
+      <!-- Chọn Ngân hàng -->
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 8px;">
+          Ngân hàng thụ hưởng <span style="color: #D1757B;">*</span>
+        </label>
+        <select name="bankName" required style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 14px; background: #fff; outline: none;">
+          <option value="">-- Chọn ngân hàng --</option>
+          <option value="MB Bank (Ngân hàng Quân Đội)">MB Bank - Ngân hàng Quân Đội</option>
+          <option value="Vietcombank">Vietcombank - Ngân hàng Ngoại Thương</option>
+          <option value="Techcombank">Techcombank - Ngân hàng Kỹ Thương</option>
+          <option value="BIDV">BIDV - Đầu tư và Phát triển VN</option>
+          <option value="VietinBank">VietinBank - Công Thương Việt Nam</option>
+          <option value="ACB">ACB - Ngân hàng Á Châu</option>
+          <option value="VPBank">VPBank - Việt Nam Thịnh Vượng</option>
+          <option value="TPBank">TPBank - Tiên Phong Bank</option>
+          <option value="Agribank">Agribank - Nông nghiệp & PTNT</option>
+        </select>
+      </div>
+
+      <!-- Số tài khoản & Tên chủ thẻ -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 8px;">
+            Số tài khoản (STK) <span style="color: #D1757B;">*</span>
+          </label>
+          <input type="text" name="accountNo" required placeholder="VD: 0901234567..." 
+                 style="width: 100%; padding: 12px 14px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 14px; outline: none;" />
+        </div>
+        <div>
+          <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 8px;">
+            Tên chủ tài khoản <span style="color: #D1757B;">*</span>
+          </label>
+          <input type="text" name="accountName" required placeholder="VD: NGUYEN VAN A" 
+                 style="width: 100%; padding: 12px 14px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 14px; outline: none; text-transform: uppercase;" />
+        </div>
+      </div>
+
+      <button type="submit" 
+              style="width: 100%; background: linear-gradient(135deg, #107070 0%, #083838 100%); color: #FFFFFF; border: none; padding: 14px 24px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 14px rgba(16, 112, 112, 0.28); display: flex; align-items: center; justify-content: center; gap: 8px;"
+              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(16, 112, 112, 0.35)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(16, 112, 112, 0.28)'">
+        <span>Xác Nhận Rút Tiền Về Ngân Hàng</span>
+        <span>→</span>
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<!-- ─── BẢNG LỊCH SỬ GIAO DỊCH & YÊU CẦU RÚT TIỀN ────────────────────────── -->
+<div style="background: #FFFFFF; border-radius: 20px; padding: 28px; border: 1px solid #E2DFD7; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1.5px solid #F4F3EF; padding-bottom: 16px;">
+    <div>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #083838; margin: 0;">
+        Lịch Sử Biến Động Số Dư & Lệnh Rút
+      </h3>
+      <p style="font-size: 13px; color: #64748b; margin: 4px 0 0 0;">Theo dõi chi tiết các khoản thu nhập từ đơn hàng nông sản và lệnh chuyển tiền</p>
+    </div>
+  </div>
+
+  <!-- BẢNG LỊCH SỬ GIAO DỊCH -->
+  <% if (typeof transactions !== 'undefined' && transactions && transactions.length > 0) { %>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+          <tr style="font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; border-bottom: 1.5px solid #E2DFD7;">
+            <th style="padding: 12px 14px;">Thời gian</th>
+            <th style="padding: 12px 14px;">Loại biến động</th>
+            <th style="padding: 12px 14px;">Nội dung giao dịch</th>
+            <th style="padding: 12px 14px; text-align: right;">Số tiền</th>
+            <th style="padding: 12px 14px; text-align: right;">Số dư sau GD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% transactions.forEach(t => { %>
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+              <td style="padding: 14px; font-size: 13px; color: #64748b;">
+                <%= new Date(t.createdAt).toLocaleString('vi-VN') %>
+              </td>
+              <td style="padding: 14px;">
+                <% if (t.type === 'CREDIT') { %>
+                  <span style="background: #dcfce7; color: #15803d; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;">
+                    + Thu nhập đơn
+                  </span>
+                <% } else if (t.type === 'LOCK') { %>
+                  <span style="background: #fef3c7; color: #b45309; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;">
+                    🔒 Tạm giữ rút tiền
+                  </span>
+                <% } else { %>
+                  <span style="background: #fee2e2; color: #b91c1c; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                    - Rút tiền
+                  </span>
+                <% } %>
+              </td>
+              <td style="padding: 14px; font-size: 13.5px; font-weight: 600; color: #1e293b;">
+                <%= t.description || 'Giao dịch ví nông trại' %>
+              </td>
+              <td style="padding: 14px; text-align: right; font-weight: 800; font-size: 14.5px; color: <%= t.type === 'CREDIT' ? '#107070' : '#D1757B' %>;">
+                <%= t.type === 'CREDIT' ? '+' : '-' %><%= t.amount ? t.amount.toLocaleString('vi-VN') : 0 %> đ
+              </td>
+              <td style="padding: 14px; text-align: right; font-size: 13px; font-weight: 700; color: #475569;">
+                <%= t.balanceAfter ? t.balanceAfter.toLocaleString('vi-VN') : 0 %> đ
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+      <div style="font-size: 40px; margin-bottom: 8px;">🌾</div>
+      <div style="font-size: 15px; font-weight: 700; color: #334155; margin-bottom: 4px;">Chưa có biến động số dư nào</div>
+      <div style="font-size: 13px;">Khi đơn hàng nông sản được hoàn tất, tiền thanh toán sẽ xuất hiện tại đây.</div>
+    </div>
+  <% } %>
+
+  <!-- LỊCH SỬ CÁC LỆNH RÚT TIỀN (NẾU CÓ) -->
+  <% if (typeof payoutHistory !== 'undefined' && payoutHistory && payoutHistory.length > 0) { %>
+    <div style="margin-top: 36px; border-top: 1.5px solid #F4F3EF; padding-top: 24px;">
+      <h4 style="font-size: 16px; font-weight: 700; color: #083838; margin-bottom: 14px;">
+        Lệnh Rút Tiền Gần Đây
+      </h4>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="font-size: 12px; color: #64748b; border-bottom: 1px solid #E2DFD7;">
+              <th style="padding: 8px 12px;">Ngày tạo lệnh</th>
+              <th style="padding: 8px 12px;">Số tiền rút</th>
+              <th style="padding: 8px 12px;">Ngân hàng & STK</th>
+              <th style="padding: 8px 12px;">Chủ tài khoản</th>
+              <th style="padding: 8px 12px; text-align: right;">Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% payoutHistory.forEach(p => { %>
+              <tr style="border-bottom: 1px solid #f8fafc; font-size: 13px;">
+                <td style="padding: 10px 12px; color: #64748b;"><%= new Date(p.createdAt).toLocaleDateString('vi-VN') %></td>
+                <td style="padding: 10px 12px; font-weight: 700; color: #083838;"><%= p.amount.toLocaleString('vi-VN') %> đ</td>
+                <td style="padding: 10px 12px;"><%= p.bankName %> - <%= p.accountNo %></td>
+                <td style="padding: 10px 12px;"><%= p.accountName %></td>
+                <td style="padding: 10px 12px; text-align: right;">
+                  <% if (p.status === 'PAID') { %>
+                    <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px;">✓ Đã chuyển</span>
+                  <% } else if (p.status === 'PENDING') { %>
+                    <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px;">⏳ Đang chờ duyệt</span>
+                  <% } else { %>
+                    <span style="background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px;">Từ chối</span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% } %>
+
+</div>
+
+<script>
+  function setPayoutAmount(amount) {
+    const input = document.getElementById('payoutAmountInput');
+    if (input) {
+      input.value = amount;
+    }
+  }
+
+  // Bắt form rút tiền bằng Ajax để có thông báo mượt mà
+  document.getElementById('payoutForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('/seller/wallet/payout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if (result.success) {
+        alert('✅ ' + result.message);
+        window.location.reload();
+      } else {
+        alert('⚠️ ' + (result.message || 'Có lỗi xảy ra'));
+      }
+    } catch (err) {
+      alert('⚠️ Không thể gửi yêu cầu rút tiền lúc này');
+    }
+  });
+</script>
