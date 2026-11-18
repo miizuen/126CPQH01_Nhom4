@@ -1,0 +1,146 @@
+<div class="container" style="padding: 40px 20px; max-width: 1240px; margin: 0 auto;">
+  <!-- Header Admin -->
+  <div style="background: linear-gradient(135deg, #083838 0%, #107070 100%); border-radius: 20px; padding: 32px 36px; color: #fff; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(8, 56, 56, 0.18);">
+    <div>
+      <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #ACDBDB; margin-bottom: 6px;">
+        HỆ THỐNG QUẢN TRỊ TRUNG TÂM
+      </div>
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #fff; margin: 0;">
+        Bảng Điều Khiển Sàn Nông Sản Hữu Cơ ORGO
+      </h1>
+      <p style="margin: 6px 0 0 0; color: #d8f3dc; font-size: 14px;">
+        Giám sát người dùng, nông trại đối tác, chuyên gia và dòng tiền giao dịch
+      </p>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <a href="/admin/users" class="btn" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); font-weight: 700; padding: 10px 20px; border-radius: 30px; text-decoration: none; backdrop-filter: blur(8px);">
+        👥 Người dùng
+      </a>
+      <a href="/admin/orders" class="btn" style="background: #ED9D26; color: #fff; font-weight: 700; padding: 10px 20px; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 12px rgba(237, 157, 38, 0.3);">
+        📦 Đơn toàn sàn
+      </a>
+    </div>
+  </div>
+
+  <!-- 4 THẺ THỐNG KÊ TOÀN SÀN -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px;">
+    
+    <div style="background: #FFFFFF; border-radius: 16px; padding: 24px; border: 1px solid #E2DFD7; box-shadow: 0 4px 12px rgba(16, 112, 112, 0.04); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Tổng tài khoản thành viên</div>
+        <div style="font-size: 32px; font-weight: 800; color: #083838;"><%= stats.totalUsers %></div>
+        <div style="font-size: 12px; color: #107070; font-weight: 700; margin-top: 4px;">👤 Người mua, nông trại & chuyên gia</div>
+      </div>
+      <div style="width: 52px; height: 52px; border-radius: 14px; background: #e8f5f5; color: #107070; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+        👥
+      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 16px; padding: 24px; border: 1px solid #E2DFD7; box-shadow: 0 4px 12px rgba(16, 112, 112, 0.04); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Tổng đơn hàng toàn sàn</div>
+        <div style="font-size: 32px; font-weight: 800; color: #ED9D26;"><%= stats.totalOrders %></div>
+        <div style="font-size: 12px; color: #d97706; font-weight: 700; margin-top: 4px;">🚚 Khắp các tỉnh thành</div>
+      </div>
+      <div style="width: 52px; height: 52px; border-radius: 14px; background: #fef3c7; color: #b45309; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+        📦
+      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 16px; padding: 24px; border: 1px solid #E2DFD7; box-shadow: 0 4px 12px rgba(16, 112, 112, 0.04); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Nông sản hữu cơ lưu hành</div>
+        <div style="font-size: 32px; font-weight: 800; color: #083838;"><%= stats.totalProducts %></div>
+        <div style="font-size: 12px; color: #107070; font-weight: 700; margin-top: 4px;">🌱 Đạt kiểm định VietGAP/USDA</div>
+      </div>
+      <div style="width: 52px; height: 52px; border-radius: 14px; background: #dcfce7; color: #15803d; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+        🥗
+      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border-radius: 16px; padding: 24px; border: 1px solid #E2DFD7; box-shadow: 0 4px 12px rgba(16, 112, 112, 0.04); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Tổng doanh thu sàn</div>
+        <div style="font-size: 28px; font-weight: 800; color: #107070;">
+          <%= stats.totalRevenue.toLocaleString('vi-VN') %><span style="font-size: 18px;">đ</span>
+        </div>
+        <div style="font-size: 12px; color: #15803d; font-weight: 700; margin-top: 4px;">✓ Giao dịch thành công</div>
+      </div>
+      <div style="width: 52px; height: 52px; border-radius: 14px; background: #e8f5f5; color: #107070; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+        💳
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BẢNG ĐƠN HÀNG TOÀN SÀN MỚI NHẤT -->
+  <div style="background: #FFFFFF; border-radius: 20px; padding: 28px; border: 1px solid #E2DFD7; box-shadow: 0 4px 12px rgba(16, 112, 112, 0.03);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1.5px solid #F4F3EF; padding-bottom: 16px;">
+      <div>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #083838; margin: 0;">
+          Giao Dịch Đơn Hàng Mới Nhất Toàn Sàn
+        </h3>
+        <p style="font-size: 13px; color: #64748b; margin: 4px 0 0 0;">Lịch sử đơn hàng được khách mua tại các nông trại</p>
+      </div>
+      <a href="/admin/orders" style="color: #107070; font-weight: 700; font-size: 13.5px; text-decoration: none;">
+        Xem tất cả đơn hàng →
+      </a>
+    </div>
+
+    <% if (typeof recentOrders !== 'undefined' && recentOrders.length) { %>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; border-bottom: 1.5px solid #E2DFD7;">
+              <th style="padding: 12px 14px;">Mã đơn</th>
+              <th style="padding: 12px 14px;">Khách hàng</th>
+              <th style="padding: 12px 14px;">Tổng tiền</th>
+              <th style="padding: 12px 14px;">Trạng thái</th>
+              <th style="padding: 12px 14px; text-align: right;">Chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% recentOrders.forEach(o => { %>
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 16px 14px; font-weight: 700; color: #083838;">
+                  #<%= o._id.toString().slice(-8).toUpperCase() %>
+                </td>
+                <td style="padding: 16px 14px; font-size: 14px; color: #334155;">
+                  <%= o.user ? o.user.fullName : 'Khách vãng lai' %>
+                </td>
+                <td style="padding: 16px 14px; font-weight: 800; font-size: 15px; color: #107070;">
+                  <%= o.total ? o.total.toLocaleString('vi-VN') : 0 %> đ
+                </td>
+                <td style="padding: 16px 14px;">
+                  <% if (o.status === 'DELIVERED') { %>
+                    <span style="background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                      ✓ Đã giao thành công
+                    </span>
+                  <% } else if (o.status === 'SHIPPING') { %>
+                    <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                      🚚 Đang vận chuyển
+                    </span>
+                  <% } else { %>
+                    <span style="background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                      Đang chuẩn bị
+                    </span>
+                  <% } %>
+                </td>
+                <td style="padding: 16px 14px; text-align: right;">
+                  <a href="/admin/orders" style="background: #F4F3EF; color: #083838; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-decoration: none; border: 1px solid #E2DFD7;">
+                    Xem
+                  </a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+        <div style="font-size: 40px; margin-bottom: 8px;">📋</div>
+        <div style="font-size: 15px; font-weight: 700; color: #334155; margin-bottom: 4px;">Chưa có đơn hàng nào trên hệ thống</div>
+      </div>
+    <% } %>
+  </div>
+</div>

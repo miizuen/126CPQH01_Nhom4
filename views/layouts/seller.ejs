@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Kênh Người Bán Nông Trại | ORGO Seller' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --seller-primary: #256b40;
+      --seller-dark: #16301f;
+      --seller-light: #86efac;
+      --seller-bg: #f6f2e9;
+      --seller-card: #FFFFFF;
+      --seller-gold: #ED9D26;
+      --seller-rose: #c2410c;
+      --seller-text: #16301f;
+      --seller-muted: #64748b;
+      --seller-border: #e8e3d8;
+      --lf-border: #e8e3d8;
+    }
+
+    body {
+      background-color: var(--seller-bg);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      color: var(--seller-text);
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* ─── HEADER ───────────────────────────────────────────────────────── */
+    .seller-header {
+      background: linear-gradient(135deg, #16301f 0%, #1e4028 100%);
+      color: #FFFFFF;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(22, 48, 31, 0.2);
+    }
+
+    .seller-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+
+    .seller-brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background: #fff;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .seller-brand-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 0.5px;
+      color: #FFFFFF;
+    }
+
+    .seller-brand-text span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #ACDBDB;
+      font-weight: 600;
+      display: block;
+    }
+
+    .seller-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-market-link {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-market-link:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .seller-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(22, 48, 31, 0.4);
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .seller-profile-badge .seller-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .btn-seller-logout {
+      background: transparent;
+      color: #fca5a5;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(252, 165, 165, 0.3);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-seller-logout:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    /* ─── LAYOUT & SIDEBAR ─────────────────────────────────────────────── */
+    .seller-layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      min-height: calc(100vh - 72px);
+    }
+
+    .seller-sidebar {
+      background: #FFFFFF;
+      border-right: 1px solid var(--seller-border);
+      padding: 28px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 2px 0 12px rgba(16, 112, 112, 0.03);
+    }
+
+    .seller-sidebar-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 800;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      padding-left: 12px;
+    }
+
+    .seller-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .seller-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .seller-nav-item svg {
+      color: #94a3b8;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .seller-nav-item:hover {
+      background: #f0fdf4;
+      color: var(--seller-primary);
+      transform: translateX(3px);
+    }
+
+    .seller-nav-item:hover svg {
+      color: var(--seller-primary);
+    }
+
+    .seller-nav-item.active {
+      background: linear-gradient(135deg, #16301f 0%, #256b40 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(22, 48, 31, 0.25);
+    }
+
+    .seller-nav-item.active svg {
+      color: #FFFFFF;
+    }
+
+    /* ─── FARM BADGE CARD (SIDEBAR BOTTOM) ────────────────────────────── */
+    .seller-farm-badge {
+      background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .seller-farm-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #16301f;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(22, 48, 31, 0.2);
+    }
+
+    .seller-farm-info {
+      overflow: hidden;
+    }
+
+    .seller-farm-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #16301f;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .seller-farm-status {
+      font-size: 11.5px;
+      color: #256b40;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    /* ─── MAIN CONTENT CONTAINER ───────────────────────────────────────── */
+    .seller-content {
+      padding: 36px 40px;
+      max-width: 1320px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .seller-layout {
+        grid-template-columns: 1fr;
+      }
+      .seller-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--seller-border);
+      }
+      .seller-content {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── SELLER TOP NAVIGATION ─────────────────────────────────────────── -->
+  <header class="seller-header">
+    <a href="/seller/dashboard" class="seller-brand">
+      <img src="/images/logo.png" alt="ORGO Seller Hub">
+      <div class="seller-brand-text">
+        <h1>ORGO SELLER</h1>
+        <span>KÊNH NÔNG TRẠI HỮU CƠ</span>
+      </div>
+    </a>
+
+    <div class="seller-header-actions">
+      <a href="/" target="_blank" class="btn-market-link">
+        <span>Xem Sàn Mua Sắm</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+
+      <div class="seller-profile-badge">
+        <span style="font-size: 16px;">🌱</span>
+        <span class="seller-name"><%= locals.user && user.fullName ? user.fullName : 'Nông Trại Hữu Cơ' %></span>
+      </div>
+
+      <a href="/auth/logout" class="btn-seller-logout">
+        Đăng xuất
+      </a>
+    </div>
+  </header>
+
+  <!-- ─── SELLER BODY ───────────────────────────────────────────────────── -->
+  <div class="seller-layout">
+    <aside class="seller-sidebar">
+      <div>
+        <div class="seller-sidebar-title">BẢNG ĐIỀU KHIỂN</div>
+        <ul class="seller-nav-list" id="sellerNavList">
+          <li>
+            <a href="/seller/dashboard" class="seller-nav-item <%= typeof path !== 'undefined' && path === '/dashboard' ? 'active' : '' %>">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span>Tổng quan nông trại</span>
+            </a>
+          </li>
+          <li>
+            <a href="/seller/products" class="seller-nav-item <%= typeof path !== 'undefined' && path === '/products' ? 'active' : '' %>">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+              <span>Quản lý nông sản</span>
+            </a>
+          </li>
+          <li>
+            <a href="/seller/orders" class="seller-nav-item <%= typeof path !== 'undefined' && path === '/orders' ? 'active' : '' %>">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span>Đơn hàng khách mua</span>
+            </a>
+          </li>
+          <li>
+            <a href="/seller/wallet" class="seller-nav-item <%= typeof path !== 'undefined' && path === '/wallet' ? 'active' : '' %>">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+              <span>Ví doanh thu & Rút tiền</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Farm Badge info -->
+      <div class="seller-farm-badge">
+        <div class="seller-farm-icon">🌿</div>
+        <div class="seller-farm-info">
+          <div class="seller-farm-name"><%= locals.user && user.fullName ? user.fullName : 'Nông Trại Xanh' %></div>
+          <div class="seller-farm-status">
+            <span>✓ Chuẩn VietGAP & Organic</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="seller-content">
+      <%- body %>
+    </main>
+  </div>
+
+  <script>
+    // Tự động active nav item dựa trên URL hiện tại
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.seller-nav-item').forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>

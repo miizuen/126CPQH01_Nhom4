@@ -1,0 +1,229 @@
+<style>
+  :root {
+    --expert-sage: #285430;
+    --expert-cream: #faf7f2;
+    --expert-warm-dark: #1f2e24;
+    --expert-sand: #eee7dc;
+    --expert-gold: #c58940;
+    --expert-border: #e6dfd5;
+  }
+
+  .expert-studio-wrap {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    color: #2b3a30;
+  }
+
+  /* Editorial Cover Card */
+  .expert-editorial-banner {
+    background: #1f382a;
+    background-image: linear-gradient(135deg, #1c3628 0%, #294a37 60%, #366048 100%);
+    border-radius: 28px;
+    padding: 42px 48px;
+    color: #ffffff;
+    margin-bottom: 36px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(28, 54, 40, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .expert-editorial-banner::after {
+    content: '';
+    position: absolute;
+    right: -30px; bottom: -30px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(197, 137, 64, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Article Card with magazine editorial aesthetic */
+  .article-card-row {
+    background: #ffffff;
+    border: 1px solid var(--expert-border);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+  }
+  .article-card-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+    border-color: #cbd5e1;
+  }
+  .article-thumb {
+    width: 120px;
+    height: 90px;
+    border-radius: 14px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--expert-border);
+  }
+  .category-pill {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 4px 10px;
+    border-radius: 14px;
+  }
+</style>
+
+<div class="container expert-studio-wrap" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+  
+  <!-- ─── 1. EDITORIAL BANNER ───────────────────────────────────────────── -->
+  <div class="expert-editorial-banner">
+    <div style="position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
+      
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <div style="width: 76px; height: 76px; border-radius: 22px; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; font-size: 34px; border: 1.5px solid rgba(255,255,255,0.25);">
+          🌿
+        </div>
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: 1.5px; color: #a7f3d0; font-weight: 800; background: rgba(167, 243, 208, 0.15); padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; border: 1px solid rgba(167, 243, 208, 0.3);">
+            <span>★</span> GÓC CHUYÊN GIA DINH DƯỠNG
+          </div>
+          <h1 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin: 0; color: #fff; line-height: 1.25;">
+            <%= typeof expertProfile !== 'undefined' && expertProfile && expertProfile.displayName ? expertProfile.displayName : (user ? user.fullName : 'Chuyên Gia Nông Nghiệp & Dinh Dưỡng') %>
+          </h1>
+          <p style="margin: 6px 0 0 0; color: #cbd5e1; font-size: 14.5px;">
+            <%= typeof expertProfile !== 'undefined' && expertProfile && expertProfile.title ? expertProfile.title : 'Cố vấn Thực Phẩm Hữu Cơ & Sống Lành Tự Nhiên' %>
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="/blog" target="_blank" style="background: rgba(255,255,255,0.12); color: #fff; font-weight: 600; padding: 12px 22px; border-radius: 30px; text-decoration: none; border: 1px solid rgba(255,255,255,0.25); font-size: 14px;">
+          Xem Trang Blog ↗
+        </a>
+        <a href="/expert/new" style="background: #ffffff; color: #1c3628; font-weight: 700; padding: 12px 26px; border-radius: 30px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); font-size: 14.5px;">
+          <span>✍️ Soạn Bài Viết Mới</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── 2. SUMMARY METRICS ────────────────────────────────────────────── -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 36px;">
+    
+    <div style="background: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid var(--expert-border); box-shadow: 0 4px 16px rgba(0,0,0,0.02); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.6px;">Tổng bài viết</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #1f382a; margin-top: 4px;">
+          <%= articles ? articles.length : 0 %>
+        </div>
+        <div style="font-size: 12px; color: #285430; font-weight: 600; margin-top: 4px;">Kiến thức đã chia sẻ</div>
+      </div>
+      <div style="width: 48px; height: 48px; border-radius: 14px; background: #f0fdf4; color: #166534; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid #bbf7d0;">
+        📚
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid var(--expert-border); box-shadow: 0 4px 16px rgba(0,0,0,0.02); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.6px;">Đang xuất bản</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #15803d; margin-top: 4px;">
+          <%= articles ? articles.filter(a => a.status === 'PUBLISHED').length : 0 %>
+        </div>
+        <div style="font-size: 12px; color: #15803d; font-weight: 600; margin-top: 4px;">Phục vụ cộng đồng</div>
+      </div>
+      <div style="width: 48px; height: 48px; border-radius: 14px; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid #a7f3d0;">
+        ✨
+      </div>
+    </div>
+
+    <div style="background: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid var(--expert-border); box-shadow: 0 4px 16px rgba(0,0,0,0.02); display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.6px;">Lượt tiếp cận</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #c2410c; margin-top: 4px;">
+          <%= articles ? articles.reduce((sum, a) => sum + (a.viewCount || 0), 0).toLocaleString('vi-VN') : 0 %>
+        </div>
+        <div style="font-size: 12px; color: #c2410c; font-weight: 600; margin-top: 4px;">Độc giả đọc bài</div>
+      </div>
+      <div style="width: 48px; height: 48px; border-radius: 14px; background: #fff7ed; color: #ea580c; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid #fed7aa;">
+        👁️
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── 3. ARTICLES MAGAZINE LIST ────────────────────────────────────── -->
+  <div style="background: #ffffff; border-radius: 24px; padding: 36px; border: 1px solid var(--expert-border); box-shadow: 0 6px 20px rgba(0,0,0,0.02);">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; border-bottom: 1px solid var(--expert-border); padding-bottom: 18px;">
+      <div>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #1f382a; margin: 0;">
+          Tất Cả Bài Viết Đã Đăng
+        </h3>
+        <p style="font-size: 13.5px; color: #64748b; margin: 4px 0 0 0;">
+          Chỉnh sửa nội dung, tối ưu hình ảnh và quản lý tương tác bạn đọc
+        </p>
+      </div>
+      <span style="font-size: 13px; font-weight: 700; color: #285430; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 14px; border-radius: 20px;">
+        <%= articles ? articles.length : 0 %> bài viết
+      </span>
+    </div>
+
+    <% if (articles && articles.length > 0) { %>
+      <div style="display: grid; gap: 16px;">
+        <% articles.forEach(a => { 
+          const thumb = a.thumbnail || 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80';
+        %>
+          <div class="article-card-row">
+            <div style="display: flex; gap: 20px; align-items: center; flex: 1; min-width: 0;">
+              <img src="<%= thumb %>" alt="<%= a.title %>" class="article-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80';">
+              
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                  <span class="category-pill" style="background: <%= a.category === 'RECIPE' ? '#fef3c7' : (a.category === 'FAQ' ? '#e0f2fe' : '#f0fdf4') %>; color: <%= a.category === 'RECIPE' ? '#92400e' : (a.category === 'FAQ' ? '#0369a1' : '#166534') %>;">
+                    <%= a.category === 'RECIPE' ? '🥗 Công thức' : (a.category === 'FAQ' ? '❓ Hỏi đáp' : '📖 Cẩm nang') %>
+                  </span>
+                  <span style="font-size: 12.5px; color: #64748b;">
+                    <%= new Date(a.createdAt).toLocaleDateString('vi-VN') %>
+                  </span>
+                  <span style="font-size: 12px; color: #94a3b8;">• <%= a.viewCount || 0 %> lượt xem</span>
+                </div>
+                
+                <h4 style="font-size: 17px; font-weight: 700; color: #1f2e24; margin: 0 0 6px 0; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  <a href="/blog/<%= a.slug %>" target="_blank" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='#285430'" onmouseout="this.style.color='#1f2e24'">
+                    <%= a.title %> ↗
+                  </a>
+                </h4>
+                
+                <p style="font-size: 13.5px; color: #64748b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  <%= a.summary || 'Chưa có tóm tắt...' %>
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: center; flex-shrink: 0;">
+              <span style="background: <%= a.status === 'PUBLISHED' ? '#dcfce7' : '#fef3c7' %>; color: <%= a.status === 'PUBLISHED' ? '#166534' : '#92400e' %>; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px;">
+                <%= a.status === 'PUBLISHED' ? '✓ Đã xuất bản' : 'Bản nháp' %>
+              </span>
+              <a href="/blog/<%= a.slug %>" target="_blank" style="background: #ffffff; color: #1f2e24; font-size: 13px; font-weight: 700; padding: 7px 16px; border-radius: 20px; text-decoration: none; border: 1px solid #cbd5e1;" onmouseover="this.style.borderColor='#285430'; this.style.color='#285430'" onmouseout="this.style.borderColor='#cbd5e1'; this.style.color='#1f2e24'">
+                Xem trước
+              </a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div style="text-align: center; padding: 50px 20px; background: #faf8f5; border-radius: 18px; border: 1px dashed var(--expert-border);">
+        <div style="font-size: 42px; margin-bottom: 10px;">✍️</div>
+        <div style="font-size: 16px; font-weight: 700; color: #1f2e24; margin-bottom: 4px;">Chưa có bài viết nào</div>
+        <p style="font-size: 13.5px; color: #64748b; max-width: 400px; margin: 0 auto 18px auto;">
+          Hãy chia sẻ các bí quyết chọn rau củ quả hữu cơ, bảo vệ sức khỏe hoặc các công thức nấu ăn thanh lành đầu tiên.
+        </p>
+        <a href="/expert/new" style="background: #285430; color: #fff; font-weight: 700; font-size: 14px; padding: 12px 26px; border-radius: 30px; text-decoration: none; display: inline-block;">
+          + Soạn bài ngay
+        </a>
+      </div>
+    <% } %>
+
+  </div>
+
+</div>

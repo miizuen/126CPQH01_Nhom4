@@ -1,0 +1,101 @@
+<div class="container" style="padding: 40px 20px; max-width: 960px; margin: 0 auto;">
+  
+  <!-- Back Link & Header -->
+  <div style="margin-bottom: 28px;">
+    <a href="/expert" style="color: #166534; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 14px; background: #eef8f2; padding: 6px 14px; border-radius: 20px; transition: all 0.2s;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#eef8f2'">
+      ← Quay lại danh sách bài viết
+    </a>
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+      <span style="font-size: 26px;">🌿</span>
+      <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; color: #0f172a; margin: 0;">
+        Soạn Thảo Bài Chia Sẻ Kiến Thức
+      </h1>
+    </div>
+    <p style="color: #64748b; margin: 6px 0 0 0; font-size: 15px;">
+      Cùng cộng đồng ORGO lan tỏa lối sống thuận tự nhiên, dinh dưỡng hữu cơ và công thức món ăn thanh lành.
+    </p>
+  </div>
+
+  <div style="background: #FFFFFF; border-radius: 24px; padding: 40px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);">
+    <form action="/expert/new" method="POST">
+      
+      <!-- Tiêu đề -->
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; color: #1e293b;">
+          Tiêu đề bài viết <span style="color: #dc2626;">*</span>
+        </label>
+        <input type="text" name="title" required placeholder="VD: 5 Cách nhận biết rau củ quả chuẩn hữu cơ không hóa chất..." 
+               style="width: 100%; padding: 14px 18px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 16px; outline: none; transition: all 0.2s; font-family: inherit;" 
+               onfocus="this.style.borderColor='#166534'; this.style.boxShadow='0 0 0 4px rgba(22, 101, 52, 0.1)';" 
+               onblur="this.style.borderColor='#cbd5e1'; this.style.boxShadow='none';" />
+      </div>
+
+      <!-- Chuyên mục & Thumbnail URL -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+        <div>
+          <label style="display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; color: #1e293b;">
+            Chuyên mục bài viết <span style="color: #dc2626;">*</span>
+          </label>
+          <select name="category" style="width: 100%; padding: 14px 18px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 15px; background: #fff; outline: none; transition: border 0.2s;" onfocus="this.style.borderColor='#166534'" onblur="this.style.borderColor='#cbd5e1'">
+            <option value="BLOG">📖 Cẩm nang & Kiến thức sống lành (BLOG)</option>
+            <option value="RECIPE">🥗 Công thức món ăn Healthy (RECIPE)</option>
+            <option value="FAQ">❓ Hỏi đáp chuyên gia dinh dưỡng (FAQ)</option>
+            <option value="NEWS">📰 Tin tức thị trường nông nghiệp sạch (NEWS)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; color: #1e293b;">
+            Link ảnh bìa đại diện (Thumbnail URL)
+          </label>
+          <input type="url" name="thumbnail" id="thumbInput" placeholder="https://images.unsplash.com/photo-..." 
+                 style="width: 100%; padding: 14px 18px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 15px; outline: none;" 
+                 oninput="document.getElementById('thumbPreview').src = this.value || 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80'" />
+        </div>
+      </div>
+
+      <!-- Live Thumbnail Preview Box -->
+      <div style="margin-bottom: 24px; background: #f8fafc; border-radius: 14px; padding: 16px; border: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 20px;">
+        <img id="thumbPreview" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" 
+             style="width: 120px; height: 80px; object-fit: cover; border-radius: 10px; border: 1px solid #e2e8f0; flex-shrink: 0;" alt="Preview Thumbnail">
+        <div>
+          <span style="font-size: 13.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Khung xem trước ảnh bìa</span>
+          <span style="font-size: 12.5px; color: #64748b;">Dán link ảnh Unsplash hoặc ảnh CDN trực tiếp vào ô bên trên để kiểm tra hiển thị.</span>
+        </div>
+      </div>
+
+      <!-- Tóm tắt ngắn -->
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; color: #1e293b;">
+          Tóm tắt dẫn nhập (Summary)
+        </label>
+        <textarea name="summary" rows="3" placeholder="Đoạn văn ngắn 2 - 3 câu giới thiệu điểm cốt lõi để thu hút người đọc trên trang chủ..." 
+                  style="width: 100%; padding: 14px 18px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 15px; outline: none; font-family: inherit; line-height: 1.6;" 
+                  onfocus="this.style.borderColor='#166534'" onblur="this.style.borderColor='#cbd5e1'"></textarea>
+      </div>
+
+      <!-- Nội dung chi tiết -->
+      <div style="margin-bottom: 32px;">
+        <label style="display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; color: #1e293b;">
+          Nội dung bài viết chi tiết <span style="color: #dc2626;">*</span>
+        </label>
+        <textarea name="content" required rows="14" placeholder="Nhập nội dung chia sẻ toàn diện của bạn tại đây... Hỗ trợ định dạng đoạn văn rõ ràng, lưu ý cách chăm sóc sức khỏe và công thức chuẩn." 
+                  style="width: 100%; padding: 18px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 15px; outline: none; font-family: inherit; line-height: 1.7;" 
+                  onfocus="this.style.borderColor='#166534'; this.style.boxShadow='0 0 0 4px rgba(22, 101, 52, 0.1)';" 
+                  onblur="this.style.borderColor='#cbd5e1'; this.style.boxShadow='none';"></textarea>
+      </div>
+
+      <!-- Nút hành động -->
+      <div style="display: flex; justify-content: flex-end; align-items: center; gap: 16px; border-top: 1px solid #e2e8f0; padding-top: 24px;">
+        <a href="/expert" style="color: #64748b; font-weight: 700; font-size: 15px; text-decoration: none; padding: 12px 24px;">
+          Hủy bỏ
+        </a>
+        <button type="submit" style="background: linear-gradient(135deg, #166534 0%, #14532d 100%); color: #fff; font-weight: 700; font-size: 15.5px; padding: 14px 36px; border-radius: 30px; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(22, 101, 52, 0.35); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          🚀 Xuất Bản Bài Viết Ngay
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
